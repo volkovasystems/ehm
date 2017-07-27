@@ -75,7 +75,7 @@ const FLOAT_NUMBER_PATTERN = /\./;
 const SYMBOL_PATTERN = /^Symbol\((.*?)\)$/;
 const TAG_PATTERN = /^\[([a-zA-Z][\-a-zA-Z0-9]+)\s+[A-Z][a-zA-Z0-9]+\:?(.+?)?\]$/;
 
-const DEFAULT_DATA_URL_PREFIX = "data:text/plain;base64,";
+const DEFAULT_DATA_URL_PREFIX = "data:text/@type;base64,";
 
 class Meta {
 	static [ Symbol.hasInstance ]( instance ){
@@ -236,7 +236,7 @@ class Meta {
 						return data;
 					}
 
-					value = value.replace( DEFAULT_DATA_URL_PREFIX, "" );
+					value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), "" );
 
 					try{
 						//: @server:
@@ -643,7 +643,7 @@ class Meta {
 
 			
 
-			return `${ DEFAULT_DATA_URL_PREFIX }${ value }`;
+			return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self[ TYPE ] ) }${ value }`;
 		};
 
 		if( typeof parser != "function" ){
@@ -683,6 +683,18 @@ class Meta {
 
 	isRaw( ){
 		return !this.isTagged( );
+	}
+
+	isCompatible( tag ){
+		/*;
+			@meta-configuration:
+				{
+					"tag": "string"
+				}
+			@end-meta-configuration
+		*/
+
+		return true;
 	}
 }
 
