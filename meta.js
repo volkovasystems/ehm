@@ -70,10 +70,27 @@ const GARBAGE = Symbol( "garbage" );
 
 class Meta {
 	static [ Symbol.hasInstance ]( instance ){
+		/*;
+			@meta-configuration:
+				{
+					"instance:required": "*"
+				}
+			@end-meta-configuration
+		*/
+
 		return this.instanceOf( instance, this );
 	}
 
 	static instanceOf( instance, blueprint ){
+		/*;
+			@meta-configuration:
+				{
+					"instance:required": "*",
+					"blueprint": "function"
+				}
+			@end-meta-configuration
+		*/
+
 		if(
 			typeof instance == "object"
 			&& instance != null
@@ -101,15 +118,56 @@ class Meta {
 			.instanceOf( blueprint.name );
 	}
 
+	static create( blueprint, entity ){
+		/*;
+			@meta-configuration:
+				{
+					"blueprint:required": "function",
+					"entity": "*"
+				}
+			@end-meta-configuration
+		*/
+
+		if( typeof blueprint != "function" ){
+			blueprint = this;
+		}
+
+		return Object.freeze( new blueprint( entity ) );
+	}
+
 	constructor( entity, name ){
+		/*;
+			@meta-configuration:
+				{
+					"entity:required": "*",
+					"name:required": "string"
+				}
+			@end-meta-configuration
+		*/
+
 		this.__initialize__( entity, name );
 	}
 
 	__initialize__( entity, name ){
+		/*;
+			@meta-configuration:
+				{
+					"entity:required": "*",
+					"name:required": "string"
+				}
+			@end-meta-configuration
+		*/
+
 		let type = typeof entity;
 
+		name = name || type.replace( /^./, ( match ) => match.toUpperCase( ) );
+
+		if( typeof name != "string" ){
+			throw new Error( "invalid name" );
+		}
+
 		this[ TYPE ] = type;
-		this[ NAME ] = name || type.replace( /^./, ( match ) => match.toUpperCase( ) );
+		this[ NAME ] = name;
 		this[ ENTITY ] = entity;
 
 		return this;
@@ -127,6 +185,14 @@ class Meta {
 		@end-note
 	*/
 	[ Symbol.toPrimitive ]( type ){
+		/*;
+			@meta-configuration:
+				{
+					"type:required": "string",
+				}
+			@end-meta-configuration
+		*/
+
 		switch( type ){
 			case "string":
 				return this.toString( );
@@ -200,6 +266,14 @@ class Meta {
 	}
 
 	typeOf( type ){
+		/*;
+			@meta-configuration:
+				{
+					"type:required": "string"
+				}
+			@end-meta-configuration
+		*/
+
 		if( typeof type == "string" ){
 			return typeof this[ ENTITY ] == type;
 		}
@@ -213,6 +287,17 @@ class Meta {
 		@end-note
 	*/
 	instanceOf( blueprint ){
+		/*;
+			@meta-configuration:
+				{
+					"blueprint:required": [
+						"function",
+						"string"
+					],
+				}
+			@end-meta-configuration
+		*/
+
 		if( typeof blueprint == "function" ){
 			return (
 				this instanceof blueprint
@@ -259,6 +344,10 @@ class Meta {
 		}
 
 		return false;
+	}
+
+	serialize( ){
+		return this.tag( );
 	}
 }
 
