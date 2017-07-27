@@ -1,0 +1,84 @@
+{
+	"state": {
+		"passed": 1,
+		"failed": 0,
+		"skipped": 0
+	},
+	"start": "2017-07-27T04:58:49.133Z",
+	"end": "2017-07-27T04:59:31.241Z",
+	"capabilities": {
+		"browserName": "chrome",
+		"chromeOptions": {
+			"args": [
+				"disable-gpu",
+				"headless"
+			]
+		},
+		"proxy": null
+	},
+	"host": "127.0.0.1",
+	"port": 4444,
+	"baseUrl": "http://localhost",
+	"framework": "mocha",
+	"mochaOpts": {
+		"timeout": 10000,
+		"ui": "bdd"
+	},
+	"suites": [
+		{
+			"name": "ehm",
+			"duration": 0,
+			"start": "2017-07-27T04:59:29.299Z",
+			"tests": [],
+			"hooks": []
+		},
+		{
+			"name": "ehm",
+			"duration": 1761,
+			"start": "2017-07-27T04:59:29.299Z",
+			"end": "2017-07-27T04:59:31.060Z",
+			"tests": [],
+			"hooks": [
+				{
+					"start": "2017-07-27T04:59:29.301Z",
+					"end": "2017-07-27T04:59:29.301Z",
+					"duration": 0,
+					"title": "\"before each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return Meta class"
+				},
+				{
+					"start": "2017-07-27T04:59:31.059Z",
+					"end": "2017-07-27T04:59:31.059Z",
+					"duration": 0,
+					"title": "\"after each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return Meta class"
+				},
+				{
+					"start": "2017-07-27T04:59:31.060Z",
+					"end": "2017-07-27T04:59:31.060Z",
+					"duration": 0,
+					"title": "\"after all\" hook",
+					"associatedSuite": "ehm"
+				}
+			]
+		},
+		{
+			"name": "`ehm( )`",
+			"duration": 1760,
+			"start": "2017-07-27T04:59:29.300Z",
+			"end": "2017-07-27T04:59:31.060Z",
+			"tests": [
+				{
+					"name": "should return Meta class",
+					"start": "2017-07-27T04:59:29.300Z",
+					"end": "2017-07-27T04:59:31.059Z",
+					"duration": 1759,
+					"state": "pass"
+				}
+			],
+			"hooks": []
+		}
+	]
+}

@@ -1,0 +1,32 @@
+{
+	"stats": {
+		"suites": 2,
+		"tests": 1,
+		"passes": 1,
+		"pending": 0,
+		"failures": 0,
+		"start": "2017-07-27T04:58:48.074Z",
+		"end": "2017-07-27T04:58:48.078Z",
+		"duration": 4
+	},
+	"tests": [
+		{
+			"title": "should return Meta class",
+			"fullTitle": "ehm `ehm( )` should return Meta class",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		}
+	],
+	"pending": [],
+	"failures": [],
+	"passes": [
+		{
+			"title": "should return Meta class",
+			"fullTitle": "ehm `ehm( )` should return Meta class",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		}
+	]
+}

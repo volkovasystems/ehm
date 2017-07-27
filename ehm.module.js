@@ -50,7 +50,9 @@
 const Meta = require( "./meta.js" );
 //: @end-server
 
-
+//: @client:
+const Meta = require( "./meta.support.js" );
+//: @end-client
 
 const ehm = function ehm( ){
 	return Meta;

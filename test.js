@@ -1,7 +1,7 @@
 "use strict";
 
 /*;
-	@module-license:
+	@test-license:
 		The MIT License (MIT)
 		@mit-license
 
@@ -25,35 +25,64 @@
 		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 		SOFTWARE.
-	@end-module-license
+	@end-test-license
 
-	@module-configuration:
+	@test-configuration:
 		{
 			"package": "ehm",
-			"path": "ehm/ehm.js",
-			"file": "ehm.js",
-			"module": "ehm",
+			"path": "ehm/test.module.js",
+			"file": "test.module.js",
+			"module": "test",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
-			"repository": "https://github.com/volkovasystems/ehm.git",
-			"test": "ehm-test.js",
-			"global": true
+			"repository": "https://github.com/volkovasystems/ehm.git"
 		}
-	@end-module-configuration
+	@end-test-configuration
 
-	@module-documentation:
-		Meta object class construct.
-	@end-module-documentation
+	@test-documentation:
+
+	@end-test-documentation
+
+	@include:
+		{
+			"assert": "should",
+			"ehm": "ehm"
+		}
+	@end-include
 */
 
+const assert = require( "should" );
+
 //: @server:
-const Meta = require( "./meta.js" );
+const ehm = require( "./ehm.js" );
 //: @end-server
 
 
 
-const ehm = function ehm( ){
-	return Meta;
-};
 
-module.exports = ehm;
+
+
+//: @server:
+
+describe( "ehm", ( ) => {
+
+	describe( "`ehm( )`", ( ) => {
+		it( "should return Meta class", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta, "function" );
+
+			assert.equal( Meta.name, "Meta" );
+
+		} );
+	} );
+
+} );
+
+//: @end-server
+
+
+
+
+
+
