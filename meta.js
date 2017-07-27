@@ -66,11 +66,60 @@ const STRING = Symbol( "string" );
 const NUMBER = Symbol( "number" );
 const VALUE = Symbol( "value" );
 
+const GARBAGE = Symbol( "garbage" );
+
 class Meta {
+	static [ Symbol.hasInstance ]( instance ){
+		return this.instanceOf( instance, this );
+	}
+
+	static instanceOf( instance, blueprint ){
+		if(
+			typeof instance == "object"
+			&& instance != null
+			&& typeof blueprint == "function"
+			&& instance.constructor.name === blueprint.name
+		){
+			return true;
+		}
+
+		if(
+			typeof instance == "object"
+			&& instance != null
+			&& typeof blueprint == "function"
+			&& instance.constructor.name !== blueprint.name
+		){
+			return false;
+		}
+
+		/*;
+			@note:
+				Possibility of instance being garbage.
+			@end-note
+		*/
+		if( instance === GARBAGE ){
+			return false;
+		}
+
+		if( typeof blueprint != "function" ){
+			blueprint = this;
+		}
+
+		return ( new blueprint( GARBAGE ) )
+			.__initialize__( instance, blueprint.name )
+			.instanceOf( blueprint.name );
+	}
+
 	constructor( entity, name ){
+		this.__initialize__( entity, name );
+	}
+
+	__initialize__( entity, name ){
 		this[ NAME ] = name;
 		this[ ENTITY ] = entity;
 		this[ TYPE ] = typeof this[ ENTITY ];
+
+		return this;
 	}
 
 	/*;
@@ -179,7 +228,14 @@ class Meta {
 				return true;
 			}
 
-			let entity = this;
+			let entity = this[ ENTITY ];
+			if( entity === null || typeof entity == "undefined" ){
+				return false;
+			}
+
+			if( typeof entity == "function" && entity.name === blueprint ){
+				return true;
+			}
 
 			while( entity = Object.getPrototypeOf( entity ) ){
 				if(
@@ -190,13 +246,15 @@ class Meta {
 				}
 			}
 
-			entity = this[ ENTITY ];
-			while( entity = Object.getPrototypeOf( entity ) ){
-				if(
-					typeof entity.constructor == "function"
-					&& entity.constructor.name === blueprint
-				){
-					return true;
+			if( this.constructor.name != blueprint ){
+				let entity = this;
+				while( entity = Object.getPrototypeOf( entity ) ){
+					if(
+						typeof entity.constructor == "function"
+						&& entity.constructor.name === blueprint
+					){
+						return true;
+					}
 				}
 			}
 
@@ -216,5 +274,7 @@ harden( "BOOLEAN", BOOLEAN, Meta );
 harden( "STRING", STRING, Meta );
 harden( "NUMBER", NUMBER, Meta );
 harden( "VALUE", VALUE, Meta );
+
+harden( "GARBAGE", GARBAGE, Meta );
 
 module.exports = Meta;

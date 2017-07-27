@@ -1,6 +1,6 @@
 {
 	"name": "ehm",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Meta object class construct.",
 	"main": "ehm.deploy.js",
 	"support": "ehm.support.js",
