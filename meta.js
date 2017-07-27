@@ -83,15 +83,6 @@ class Meta {
 			return true;
 		}
 
-		if(
-			typeof instance == "object"
-			&& instance != null
-			&& typeof blueprint == "function"
-			&& instance.constructor.name !== blueprint.name
-		){
-			return false;
-		}
-
 		/*;
 			@note:
 				Possibility of instance being garbage.
