@@ -115,9 +115,11 @@ class Meta {
 	}
 
 	__initialize__( entity, name ){
-		this[ NAME ] = name;
+		let type = typeof this[ ENTITY ];
+
+		this[ TYPE ] = type;
+		this[ NAME ] = name || type.replace( /^./, ( match ) => match.toUpperCase( ) );
 		this[ ENTITY ] = entity;
-		this[ TYPE ] = typeof this[ ENTITY ];
 
 		return this;
 	}
@@ -174,6 +176,10 @@ class Meta {
 
 	get [ VALUE ]( ){
 		return this[ ENTITY ];
+	}
+
+	tag( ){
+		return `[${ this[ TYPE ] } ${ this[ NAME ] }]`;
 	}
 
 	toJSON( ){
