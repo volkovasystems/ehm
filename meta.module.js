@@ -67,6 +67,15 @@ const NUMBER = Symbol( "number" );
 const VALUE = Symbol( "value" );
 
 const GARBAGE = Symbol( "garbage" );
+const CORRUPTED = Symbol( "corrupted" );
+const TAGGED = Symbol( "tagged" );
+
+const CLASS_NAME_PATTERN = /^[A-Z][a-zA-Z0-9]+$/;
+const FLOAT_NUMBER_PATTERN = /\./;
+const SYMBOL_PATTERN = /^Symbol\((.*?)\)$/;
+const TAG_PATTERN = /^\[([a-zA-Z][\-a-zA-Z0-9]+)\s+[A-Z][a-zA-Z0-9]+\:?(.+?)?\]$/;
+
+const DEFAULT_DATA_URL_PREFIX = "data:text/plain;base64,";
 
 class Meta {
 	static [ Symbol.hasInstance ]( instance ){
@@ -118,21 +127,214 @@ class Meta {
 			.instanceOf( blueprint.name );
 	}
 
-	static create( blueprint, entity ){
+	static create( blueprint, entity, state ){
 		/*;
 			@meta-configuration:
 				{
 					"blueprint:required": "function",
-					"entity": "*"
+					"entity": "*",
+					"state": Array
 				}
 			@end-meta-configuration
 		*/
+
+		if( arguments.length == 0 ){
+			blueprint = this;
+			entity = undefined;
+			state = [ ];
+		}
+
+		if( arguments.length == 1 ){
+			blueprint = this;
+			entity = arguments[ 0 ];
+			state = [ ];
+		}
+
+		if( arguments.length == 2 ){
+			blueprint = arguments[ 0 ];
+			entity = arguments[ 1 ];
+			state = [ ];
+		}
 
 		if( typeof blueprint != "function" ){
 			blueprint = this;
 		}
 
-		return Object.freeze( new blueprint( entity ) );
+		if( typeof state == "object" ){
+			state = Array.from( state );
+
+		}else{
+			state = [ ];
+		}
+
+		let data = new blueprint( entity );
+
+		if( TAG_PATTERN.test( data.stringify( ) ) ){
+			state.push( TAGGED );
+		}
+
+		let index = state.length;
+		while( index-- ){
+			let status = state[ index ];
+			harden( status, status, data );
+		}
+
+		return Object.freeze( data );
+	}
+
+	static deserialize( data, parser, blueprint ){
+		/*;
+			@meta-configuration:
+				{
+					"data": "*",
+					"parser": "function",
+					"blueprint": "function"
+				}
+			@end-meta-configuration
+		*/
+
+		let parameter = Array.from( arguments );
+
+		if( arguments.length == 2 ){
+			data = this[ ENTITY ];
+
+			parameter = [ undefined ].concat( parameter );
+		}
+
+		blueprint = parameter.splice( 1 )
+			.filter( ( parameter ) => {
+				return (
+					typeof parameter == "function"
+					&& "name" in parameter
+					&& typeof parameter.name == "string"
+					&& parameter.name != ""
+					&& CLASS_NAME_PATTERN.test( parameter.name )
+				);
+			} )
+			.concat( this )[ 0 ];
+
+		var [ parser, defer ] = parameter.splice( 1 )
+			.filter( ( parameter ) => {
+				return (
+					typeof parameter == "function"
+					&& (
+						!( "name" in parameter )
+						|| typeof parameter.name != "string"
+						|| parameter.name == ""
+						|| parameter.name == "anonymous"
+						|| parameter.name == "parser"
+					)
+				);
+			} )
+			.concat( function parser( data ){
+				if( typeof data == "string" ){
+					let token = data.match( TAG_PATTERN ) || [ ];
+					let type = token[ 1 ] || "undefined";
+					let value = token[ 2 ] || "";
+
+					if( value == "" ){
+						return data;
+					}
+
+					value = value.replace( DEFAULT_DATA_URL_PREFIX, "" );
+
+					try{
+						//: @server:
+						value = Buffer.from( value, "base64" ).toString( "utf8" );
+						//: @end-server
+
+						//: @client:
+						value = atob( value );
+						//: @end-client
+
+						switch( type ){
+							case "boolean":
+								if( value.toLowerCase( ) == "true" ){
+									return true;
+								}
+
+								if( value.toLowerCase( ) == "false" ){
+									return false;
+								}
+
+								return false;
+
+							case "function":
+								try{
+									let method = ( new Function( "return " + value ) )( );
+
+									if( typeof method != "function" ){
+										return function( ){ throw new Error( `no operation done, ${ value }` ); };
+									}
+
+									return method;
+
+								}catch( error ){
+									return function( ){ throw new Error( `no operation done, ${ error.stack }` ); };
+								}
+
+							case "number":
+								try{
+									if( value == "Infinity" ){
+										return Infinity;
+									}
+
+									if( value == "NaN" ){
+										return NaN;
+									}
+
+									if( FLOAT_NUMBER_PATTERN.test( value ) ){
+										return parseFloat( value );
+									}
+
+									if( !FLOAT_NUMBER_PATTERN.test( value ) ){
+										return parseInt( value );
+									}
+
+									return Infinity;
+
+								}catch( error ){
+									return NaN;
+								}
+
+							case "object":
+								if( value == "null" ){
+									return null;
+								}
+
+								try{
+									return JSON.parse( value );
+
+								}catch( error ){
+									return new Error( `cannot parse, ${ value }, ${ error.stack }` );
+								}
+
+							case "symbol":
+								return Symbol( ( value.match( SYMBOL_PATTERN ) || [ ] )[ 1 ] || "" );
+
+							case "string":
+								return value;
+
+							case "undefined":
+								return undefined;
+						}
+
+						return value;
+
+					}catch( error ){
+						return data;
+					}
+				}
+
+				return data;
+			} );
+
+		try{
+			return Meta.create( blueprint, parser( data ) );
+
+		}catch( error ){
+			return Meta.create( blueprint, defer( data ), [ CORRUPTED ] );
+		}
 	}
 
 	constructor( entity, name ){
@@ -235,8 +437,24 @@ class Meta {
 		return this[ ENTITY ];
 	}
 
-	tag( ){
-		return `[${ this[ TYPE ] } ${ this[ NAME ] }]`;
+	tag( value ){
+		/*;
+			@meta-configuration:
+				{
+					"value": "string"
+				}
+			@end-meta-configuration
+		*/
+
+		if( typeof value != "string" ){
+			value = "";
+		}
+
+		if( value != "" ){
+			value = `:${ value }`;
+		}
+
+		return `[${ this[ TYPE ] } ${ this[ NAME ] }:@value]`.replace( ":@value", value );
 	}
 
 	toJSON( ){
@@ -293,7 +511,7 @@ class Meta {
 					"blueprint:required": [
 						"function",
 						"string"
-					],
+					]
 				}
 			@end-meta-configuration
 		*/
@@ -346,8 +564,129 @@ class Meta {
 		return false;
 	}
 
-	serialize( ){
-		return this.tag( );
+	/*;
+		@note:
+			This is the generic stringify function,
+				for complex entity you need to override this.
+		@end-note
+	*/
+	stringify( ){
+		try{
+			if( this[ TYPE ] == "object" ){
+				return JSON.stringify( this[ ENTITY ] );
+			}
+
+			return "" + this[ ENTITY ];
+
+		}catch( error ){
+			try{
+				return this[ ENTITY ].toString( );
+
+			}catch( error ){
+				return this.toString( );
+			}
+		}
+	}
+
+	deserialize( data, parser, blueprint ){
+		/*;
+			@meta-configuration:
+				{
+					"data": "*",
+					"parser": "function",
+					"blueprint": "function"
+				}
+			@end-meta-configuration
+		*/
+
+		let procedure = Meta.deserialize;
+
+		if(
+			typeof this.constructor == "function"
+			&& typeof this.constructor.deserialize == "function"
+			&& this.constructor.deserialize.name === "deserialize"
+		){
+			procedure = this.constructor.deserialize;
+		}
+
+		if( arguments.length == 2 ){
+			return procedure( this[ ENTITY ], arguments[ 0 ], arguments[ 1 ] );
+
+		}else{
+			return procedure( data, parser, blueprint );
+		}
+	}
+
+	/*;
+		@method-documentation:
+			Returns a tag format with value.
+			The value must be a data URL format.
+
+			The parser function will accept a context parameter.
+
+			By default this will serialize the entity using plain/text base64 data URL format.
+
+			The parser must return a serialize format of the data to be placed on the tag.
+		@end-method-documentation
+	*/
+	serialize( parser ){
+		/*;
+			@meta-configuration:
+				{
+					"parser": "function"
+				}
+			@end-meta-configuration
+		*/
+
+		let defer = function parser( self ){
+			//: @server:
+			let value = Buffer.from( self.stringify( ) ).toString( "base64" );
+			//: @end-server
+
+			//: @client:
+			let value = btoa( self.stringify( ) );
+			//: @end-client
+
+			return `${ DEFAULT_DATA_URL_PREFIX }${ value }`;
+		};
+
+		if( typeof parser != "function" ){
+			parser = defer;
+		}
+
+		try{
+			return this.tag( parser( this ) );
+
+		}catch( error ){
+			return this.tag( defer( this ) );
+		}
+	}
+
+	isEqual( entity ){
+		/*;
+			@meta-configuration:
+				{
+					"entity:required": "*"
+				}
+			@end-meta-configuration
+		*/
+
+		return this[ ENTITY ] === entity;
+	}
+
+	isCorrupted( ){
+		return this[ CORRUPTED ] === CORRUPTED;
+	}
+
+	isTagged( ){
+		return (
+			this[ TAGGED ] === TAGGED
+			|| TAG_PATTERN.test( this.stringify( ) )
+		);
+	}
+
+	isRaw( ){
+		return !this.isTagged( );
 	}
 }
 
@@ -362,5 +701,9 @@ harden( "NUMBER", NUMBER, Meta );
 harden( "VALUE", VALUE, Meta );
 
 harden( "GARBAGE", GARBAGE, Meta );
+harden( "CORRUPTED", CORRUPTED, Meta );
+harden( "TAGGED", TAGGED, Meta );
+
+harden( "TAG_PATTERN", TAG_PATTERN, Meta );
 
 module.exports = Meta;
