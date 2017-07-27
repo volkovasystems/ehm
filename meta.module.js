@@ -106,7 +106,7 @@ class Meta {
 	}
 
 	__initialize__( entity, name ){
-		let type = typeof this[ ENTITY ];
+		let type = typeof entity;
 
 		this[ TYPE ] = type;
 		this[ NAME ] = name || type.replace( /^./, ( match ) => match.toUpperCase( ) );
