@@ -1,6 +1,7 @@
 yarn add \
 babel-runtime \
 harden \
+sxty4 \
 --save && \
 yarn add \
 babel-cli \
@@ -28,5 +29,6 @@ yargs \
 --dev && \
 bower install \
 harden \
+sxty4 \
 --save \
 --force-latest

@@ -1,6 +1,6 @@
 {
 	"name": "ehm",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "Meta object class construct.",
 	"main": "ehm.deploy.js",
 	"support": "ehm.support.js",
@@ -23,7 +23,11 @@
 		"test",
 		"tests"
 	],
-	"dependencies": {
+	"resolutions": {
 		"harden": "^0.23.0"
+	},
+	"dependencies": {
+		"harden": "^0.23.0",
+		"sxty4": "^0.10.0"
 	}
 }

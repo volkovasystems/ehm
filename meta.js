@@ -49,12 +49,14 @@
 
 	@include:
 		{
-			"harden": "harden"
+			"harden": "harden",
+			"sxty4": "sxty4"
 		}
 	@end-include
 */
 
 const harden = require( "harden" );
+const sxty4 = require( "sxty4" );
 
 const NAME = Symbol( "name" );
 const ENTITY = Symbol( "entity" );
@@ -239,11 +241,7 @@ class Meta {
 					value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), "" );
 
 					try{
-						//: @server:
-						value = Buffer.from( value, "base64" ).toString( "utf8" );
-						//: @end-server
-
-						
+						value = sxty4( value ).decode( );
 
 						switch( type ){
 							case "boolean":
@@ -637,11 +635,7 @@ class Meta {
 		*/
 
 		let defer = function parser( self ){
-			//: @server:
-			let value = Buffer.from( self.stringify( ) ).toString( "base64" );
-			//: @end-server
-
-			
+			let value = sxty4( self.stringify( ) ).encode( );
 
 			return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self[ TYPE ] ) }${ value }`;
 		};

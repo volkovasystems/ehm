@@ -90,11 +90,11 @@ ansi-styles@^2.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
 anymatch@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-1.3.0.tgz#a3e52fa39168c825ff57b0248126ce5a8ff95507"
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-1.3.2.tgz#553dcb8f91e3c889845dfdba34c77721b90b9d7a"
   dependencies:
-    arrify "^1.0.0"
     micromatch "^2.1.5"
+    normalize-path "^2.0.0"
 
 aproba@^1.0.3:
   version "1.1.2"
@@ -169,10 +169,6 @@ array-uniq@^1.0.2:
 array-unique@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
-
-arrify@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
 asn1.js@^4.0.0:
   version "4.9.1"
@@ -877,6 +873,13 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
+bse@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/bse/-/bse-0.0.0.tgz#46ade22706da25a2c0afd2de8fe8d5797642a035"
+  dependencies:
+    babel-runtime "^6.25.0"
+    falzy "^0.23.0"
+
 buffer-crc32@^0.2.1, buffer-crc32@~0.2.3:
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
@@ -1554,6 +1557,12 @@ extract-zip@^1.0.3:
 extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
+
+falzy@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/falzy/-/falzy-0.23.0.tgz#fec52a7df6e80adaf47bb89d47ca5a714566b664"
+  dependencies:
+    babel-runtime "^6.23.0"
 
 fancy-log@^1.1.0:
   version "1.3.0"
@@ -3666,8 +3675,8 @@ safe-buffer@~5.0.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
 selenium-standalone@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-6.5.0.tgz#5ecaffdcb15799fe69954e6143791a38bf88dfd1"
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-6.6.0.tgz#00973b979732a54fa2662afd8be3fb06cb6004f1"
   dependencies:
     async "^2.1.4"
     commander "^2.9.0"
@@ -3996,6 +4005,15 @@ supports-color@~3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
+sxty4@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/sxty4/-/sxty4-0.11.0.tgz#84eebb12c76c306a1a1813651c042442b9affa81"
+  dependencies:
+    babel-runtime "^6.25.0"
+    bse "^0.0.0"
+    falzy "^0.23.0"
+    harden "^0.23.0"
+
 tapable@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.7.tgz#e46c0daacbb2b8a98b9b0cea0f4052105817ed5c"
@@ -4013,9 +4031,18 @@ tar-pack@^3.4.0:
     tar "^2.2.1"
     uid-number "^0.0.6"
 
-tar-stream@1.5.2, tar-stream@^1.5.0:
+tar-stream@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/tar-stream/-/tar-stream-1.5.2.tgz#fbc6c6e83c1a19d4cb48c7d96171fc248effc7bf"
+  dependencies:
+    bl "^1.0.0"
+    end-of-stream "^1.0.0"
+    readable-stream "^2.0.0"
+    xtend "^4.0.0"
+
+tar-stream@^1.5.0:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/tar-stream/-/tar-stream-1.5.4.tgz#36549cf04ed1aee9b2a30c0143252238daf94016"
   dependencies:
     bl "^1.0.0"
     end-of-stream "^1.0.0"
