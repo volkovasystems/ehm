@@ -715,6 +715,7 @@ class Meta {
 			return (
 				this instanceof blueprint
 				|| entity instanceof blueprint
+				|| typeof blueprint.name == "string" && this.instanceOf( blueprint.name )
 			);
 		}
 
@@ -885,6 +886,10 @@ class Meta {
 			@end-meta-configuration
 		*/
 
+		if( entity instanceof Meta ){
+			return this.valueOf( ) === entity.valueOf( );
+		}
+
 		return this.valueOf( ) === entity;
 	}
 
@@ -948,6 +953,14 @@ class Meta {
 	*/
 	native( ){
 		return Meta.create( this.valueOf( ) );
+	}
+
+	getType( ){
+		return this[ TYPE ];
+	}
+
+	getName( ){
+		return this[ NAME ];
 	}
 }
 
