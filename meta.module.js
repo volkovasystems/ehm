@@ -237,9 +237,7 @@ class Meta {
 		let parameter = Array.from( arguments );
 
 		if( arguments.length == 2 ){
-			data = this[ ENTITY ];
-
-			parameter = [ undefined ].concat( parameter );
+			parameter = [ arguments[ 0 ], undefined, arguments[ 1 ] ];
 		}
 
 		blueprint = parameter.splice( 1 )
@@ -450,6 +448,13 @@ class Meta {
 		this.__initialize__( entity, name );
 	}
 
+	/*;
+		@method-documentation:
+			This is an internal initialization procedure.
+
+
+		@end-method-documentation
+	*/
 	__initialize__( entity, name ){
 		/*;
 			@meta-configuration:
@@ -537,6 +542,11 @@ class Meta {
 
 			The format property dictates how the value must be interpreted.
 		@end-method-documentation
+
+		@note:
+			For special values that needs specific conversion to object type,
+				this method needs to be overridden.
+		@end-note
 	*/
 	get [ OBJECT ]( ){
 		return Object.freeze( {
@@ -552,13 +562,20 @@ class Meta {
 	}
 
 	get [ STRING ]( ){
-		return Object.prototype.toString.call( this[ ENTITY ] );
+		return Object.prototype.toString.call( this.valueOf( ) );
 	}
 
 	get [ NUMBER ]( ){
 		return Infinity;
 	}
 
+	/*;
+		@get-method-documentation:
+			Returns the original value.
+
+			As much as possible do not override this.
+		@end-get-method-documentation
+	*/
 	get [ VALUE ]( ){
 		return this[ ENTITY ];
 	}
@@ -592,28 +609,65 @@ class Meta {
 		return `[${ this[ TYPE ] } ${ this[ NAME ] }:@value]`.replace( ":@value", value );
 	}
 
+	/*;
+		@method-documentation:
+			Returns the object conversion of this data.
+
+			This will be used on JSON.stringify method.
+		@end-method-documentation
+	*/
 	toJSON( ){
 		return this[ OBJECT ];
 	}
 
 	/*;
+		@method-documentation:
+			Returns the boolean conversion of this data.
+		@end-method-documentation
+
 		@note:
-			As much as possible, do not override these methods.
+			As much as possible, do not override this method.
 		@end-note
 	*/
-
 	toBoolean( ){
 		return this[ BOOLEAN ];
 	}
 
+	/*;
+		@method-documentation:
+			Returns the string conversion of this data.
+		@end-method-documentation
+
+		@note:
+			As much as possible, do not override this method.
+		@end-note
+	*/
 	toString( ){
 		return this[ STRING ];
 	}
 
+	/*;
+		@method-documentation:
+			Returns the numerical conversion of this data.
+		@end-method-documentation
+
+		@note:
+			As much as possible, do not override this method.
+		@end-note
+	*/
 	toNumber( ){
 		return this[ NUMBER ];
 	}
 
+	/*;
+		@method-documentation:
+			Returns the original value.
+		@end-method-documentation
+
+		@note:
+			As much as possible, do not override this method.
+		@end-note
+	*/
 	valueOf( ){
 		return this[ VALUE ];
 	}
@@ -628,7 +682,7 @@ class Meta {
 		*/
 
 		if( typeof type == "string" ){
-			return typeof this[ ENTITY ] == type;
+			return typeof this.valueOf( ) == type;
 		}
 
 		return false;
@@ -651,10 +705,12 @@ class Meta {
 			@end-meta-configuration
 		*/
 
+		let entity = this.valueOf( );
+
 		if( typeof blueprint == "function" ){
 			return (
 				this instanceof blueprint
-				|| this[ ENTITY ] instanceof blueprint
+				|| entity instanceof blueprint
 			);
 		}
 
@@ -663,7 +719,6 @@ class Meta {
 				return true;
 			}
 
-			let entity = this[ ENTITY ];
 			if( entity === null || typeof entity == "undefined" ){
 				return false;
 			}
@@ -708,14 +763,14 @@ class Meta {
 	stringify( ){
 		try{
 			if( this[ TYPE ] == "object" ){
-				return JSON.stringify( this[ ENTITY ] );
+				return JSON.stringify( this.valueOf( ) );
 			}
 
-			return EMPTY_STRING + this[ ENTITY ];
+			return EMPTY_STRING + this.valueOf( );
 
 		}catch( error ){
 			try{
-				return this[ ENTITY ].toString( );
+				return this.valueOf( ).toString( );
 
 			}catch( error ){
 				return this.toString( );
@@ -750,7 +805,7 @@ class Meta {
 		}
 
 		if( arguments.length == 2 ){
-			return procedure( this[ ENTITY ], arguments[ 0 ], arguments[ 1 ] );
+			return procedure( this.valueOf( ), arguments[ 0 ], arguments[ 1 ] );
 
 		}else{
 			return procedure( data, parser, blueprint );
@@ -814,7 +869,7 @@ class Meta {
 			@end-meta-configuration
 		*/
 
-		return this[ ENTITY ] === entity;
+		return this.valueOf( ) === entity;
 	}
 
 	/*;
@@ -859,6 +914,24 @@ class Meta {
 
 	hasError( ){
 		return this[ ERROR ] instanceof Error;
+	}
+
+	/*;
+		@method-documentation:
+			Returns the clone of this data.
+		@end-method-documentation
+	*/
+	clone( ){
+		return Meta.create( this.constructor, this.valueOf( ) );
+	}
+
+	/*;
+		@method-documentation:
+			Returns the Meta instance of this data.
+		@end-method-documentation
+	*/
+	native( ){
+		return Meta.create( this.valueOf( ) );
 	}
 }
 
