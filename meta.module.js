@@ -62,6 +62,8 @@ const NAME = Symbol( "name" );
 const ENTITY = Symbol( "entity" );
 const TYPE = Symbol( "type" );
 
+const ERROR = Symbol( "error" );
+
 const OBJECT = Symbol( "object" );
 const BOOLEAN = Symbol( "boolean" );
 const STRING = Symbol( "string" );
@@ -73,11 +75,17 @@ const CORRUPTED = Symbol( "corrupted" );
 const TAGGED = Symbol( "tagged" );
 
 const CLASS_NAME_PATTERN = /^[A-Z][a-zA-Z0-9]+$/;
+const DATA_URL_PATTERN = /^data\:[a-z][\-a-z0-9]+\/([a-z][\-a-z0-9]+)(?:\;base64)?\,/;
+const EVAL_USAGE_PATTERN = /\beval\(.*?\)|\beval\b/gm;
+const FUNCTION_CLASS_USAGE_PATTERN = /\bFunction\(.*?\)|\bFunction\b/gm;
 const FLOAT_NUMBER_PATTERN = /\./;
 const SYMBOL_PATTERN = /^Symbol\((.*?)\)$/;
-const TAG_PATTERN = /^\[([a-zA-Z][\-a-zA-Z0-9]+)\s+[A-Z][a-zA-Z0-9]+\:?(.+?)?\]$/;
+const TAG_PATTERN = /^\[([a-zA-Z][\-a-zA-Z0-9]+)\s+[A-Z][a-zA-Z0-9]+(?:\:(.+?))?\]$/;
 
+const DATA_URL_TAG = "data-url-tag";
+const DEFAULT_FORMAT = DATA_URL_TAG;
 const DEFAULT_DATA_URL_PREFIX = "data:text/@type;base64,";
+const EMPTY_STRING = "";
 
 class Meta {
 	static [ Symbol.hasInstance ]( instance ){
@@ -114,6 +122,8 @@ class Meta {
 		/*;
 			@note:
 				Possibility of instance being garbage.
+
+				Do not remove this. This is a special procedure.
 			@end-note
 		*/
 		if( instance === GARBAGE ){
@@ -124,9 +134,14 @@ class Meta {
 			blueprint = this;
 		}
 
-		return ( new blueprint( GARBAGE ) )
-			.__initialize__( instance, blueprint.name )
-			.instanceOf( blueprint.name );
+		try{
+			return ( new blueprint( GARBAGE ) )
+				.__initialize__( instance, blueprint.name )
+				.instanceOf( blueprint.name );
+
+		}catch( error ){
+			return false;
+		}
 	}
 
 	static create( blueprint, entity, state ){
@@ -169,6 +184,19 @@ class Meta {
 			state = [ ];
 		}
 
+		/*;
+			@note:
+				If we are going to throw an error here, possibility of infinite recursion.
+
+				We can push an error instead.
+			@end-note
+		*/
+		if( !( blueprint instanceof this ) ){
+			state.push( new Error( `incompatible blueprint, ${ blueprint.name }` ) );
+
+			blueprint = this;
+		}
+
 		let data = new blueprint( entity );
 
 		if( TAG_PATTERN.test( data.stringify( ) ) ){
@@ -178,12 +206,23 @@ class Meta {
 		let index = state.length;
 		while( index-- ){
 			let status = state[ index ];
-			harden( status, status, data );
+
+			if( status instanceof Error ){
+				data.setError( status );
+
+			}else{
+				harden( status, status, data );
+			}
 		}
 
 		return Object.freeze( data );
 	}
 
+	/*;
+		@static-method-documentation:
+			Generic meta data deserialization.
+		@end-static-method-documentation
+	*/
 	static deserialize( data, parser, blueprint ){
 		/*;
 			@meta-configuration:
@@ -209,7 +248,7 @@ class Meta {
 					typeof parameter == "function"
 					&& "name" in parameter
 					&& typeof parameter.name == "string"
-					&& parameter.name != ""
+					&& parameter.name != EMPTY_STRING
 					&& CLASS_NAME_PATTERN.test( parameter.name )
 				);
 			} )
@@ -222,7 +261,7 @@ class Meta {
 					&& (
 						!( "name" in parameter )
 						|| typeof parameter.name != "string"
-						|| parameter.name == ""
+						|| parameter.name == EMPTY_STRING
 						|| parameter.name == "anonymous"
 						|| parameter.name == "parser"
 					)
@@ -230,18 +269,27 @@ class Meta {
 			} )
 			.concat( function parser( data ){
 				if( typeof data == "string" ){
-					let token = data.match( TAG_PATTERN ) || [ ];
-					let type = token[ 1 ] || "undefined";
-					let value = token[ 2 ] || "";
-
-					if( value == "" ){
-						return data;
-					}
-
-					value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), "" );
-
 					try{
-						value = sxty4( value ).decode( );
+						let token = data.match( TAG_PATTERN ) || [ ];
+						let type = token[ 1 ] || "undefined";
+						let value = token[ 2 ] || EMPTY_STRING;
+
+						if( value == EMPTY_STRING ){
+							value = data;
+						}
+
+						/*;
+							@note:
+								If the value is a data url format, try to decode it.
+
+								Ensure that we have the correct type.
+							@end-note
+						*/
+						if( DATA_URL_PATTERN.test( value ) ){
+							type = ( value.match( DATA_URL_PATTERN ) || [ ] )[ 1 ] || type;
+							value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), EMPTY_STRING );
+							value = sxty4( value ).decode( );
+						}
 
 						switch( type ){
 							case "boolean":
@@ -253,10 +301,18 @@ class Meta {
 									return false;
 								}
 
-								return false;
+								throw new Error( `cannot parse boolean, ${ value }` );
 
 							case "function":
 								try{
+									if( EVAL_USAGE_PATTERN.test( value ) ){
+										throw new Error( "cannot parse function, contains eval, potential security issue" );
+									}
+
+									if( FUNCTION_CLASS_USAGE_PATTERN.test( value ) ){
+										throw new Error( "cannot parse function, contains function class, potential security issue" );
+									}
+
 									let method = ( new Function( "return " + value ) )( );
 
 									if( typeof method != "function" ){
@@ -266,7 +322,7 @@ class Meta {
 									return method;
 
 								}catch( error ){
-									return function( ){ throw new Error( `no operation done, ${ error.stack }` ); };
+									throw new Error( `cannot parse function, ${ value }, ${ error.stack }` );
 								}
 
 							case "number":
@@ -290,7 +346,7 @@ class Meta {
 									return Infinity;
 
 								}catch( error ){
-									return NaN;
+									throw new Error( `cannot parse number, ${ value }, ${ error.stack }` );
 								}
 
 							case "object":
@@ -299,14 +355,37 @@ class Meta {
 								}
 
 								try{
-									return JSON.parse( value );
+									value = JSON.parse( value );
+
+									/*;
+										This is the specification for the basic
+											meta object structure.
+									*/
+									if(
+										"type" in value && typeof value.name == "string"
+										&& "name" in value && typeof value.name == "string"
+										&& "value" in value && typeof value.value == "string"
+										&& "format" in value && typeof value.format == "string"
+										&& value.format == DATA_URL_TAG
+										&& TAG_PATTERN.test( value.value )
+									){
+										return Meta.deserialize( value.value ).valueOf( );
+									}
+
+									return value;
 
 								}catch( error ){
-									return new Error( `cannot parse, ${ value }, ${ error.stack }` );
+									return new Error( `cannot parse object, ${ value }, ${ error.stack }` );
 								}
 
 							case "symbol":
-								return Symbol( ( value.match( SYMBOL_PATTERN ) || [ ] )[ 1 ] || "" );
+								let symbol = ( ( value.match( SYMBOL_PATTERN ) || [ ] )[ 1 ] || EMPTY_STRING ).trim( );
+
+								if( symbol == EMPTY_STRING ){
+									throw new Error( `cannot parse symbol, ${ value }` );
+								}
+
+								return Symbol( symbol );
 
 							case "string":
 								return value;
@@ -318,7 +397,7 @@ class Meta {
 						return value;
 
 					}catch( error ){
-						return data;
+						throw new Error( `cannot parse, ${ data }, ${ error.stack }` );
 					}
 				}
 
@@ -329,8 +408,33 @@ class Meta {
 			return Meta.create( blueprint, parser( data ) );
 
 		}catch( error ){
-			return Meta.create( blueprint, defer( data ), [ CORRUPTED ] );
+			return Meta.create( blueprint, defer( data ), [ CORRUPTED, error ] );
 		}
+	}
+
+	/*;
+		@static-method-documentation:
+			Checks if the tag is compatible.
+		@end-static-method-documentation
+
+		@note:
+			Override for specific compatibility checking.
+		@end-note
+	*/
+	static isCompatible( tag ){
+		/*;
+			@meta-configuration:
+				{
+					"tag": "string"
+				}
+			@end-meta-configuration
+		*/
+
+		if( typeof tag != "string" ){
+			return false;
+		}
+
+		return TAG_PATTERN.test( tag );
 	}
 
 	constructor( entity, name ){
@@ -356,6 +460,10 @@ class Meta {
 			@end-meta-configuration
 		*/
 
+		if( !this.check( entity ) ){
+			throw new Error( "invalid entity" );
+		}
+
 		let type = typeof entity;
 
 		name = name || type.replace( /^./, ( match ) => match.toUpperCase( ) );
@@ -369,6 +477,16 @@ class Meta {
 		this[ ENTITY ] = entity;
 
 		return this;
+	}
+
+	/*;
+		@method-documentation:
+			For generic checking of entity this is always true,
+				and this should be overridden.
+		@end-method-documentation
+	*/
+	check( entity ){
+		return true;
 	}
 
 	/*;
@@ -413,8 +531,20 @@ class Meta {
 		return this[ NAME ];
 	}
 
+	/*;
+		@method-documentation:
+			Generally, this will return the basic object meta specification.
+
+			The format property dictates how the value must be interpreted.
+		@end-method-documentation
+	*/
 	get [ OBJECT ]( ){
-		return { };
+		return Object.freeze( {
+			"type": this[ TYPE ],
+			"name": this[ NAME ],
+			"value": this.serialize( ),
+			"format": DATA_URL_TAG
+		} );
 	}
 
 	get [ BOOLEAN ]( ){
@@ -433,6 +563,15 @@ class Meta {
 		return this[ ENTITY ];
 	}
 
+	/*;
+		@method-documentation:
+			Return a string tag format,
+
+				[type Name:value]
+
+			The value is optional.
+		@end-method-documentation
+	*/
 	tag( value ){
 		/*;
 			@meta-configuration:
@@ -443,10 +582,10 @@ class Meta {
 		*/
 
 		if( typeof value != "string" ){
-			value = "";
+			value = EMPTY_STRING;
 		}
 
-		if( value != "" ){
+		if( value != EMPTY_STRING ){
 			value = `:${ value }`;
 		}
 
@@ -572,7 +711,7 @@ class Meta {
 				return JSON.stringify( this[ ENTITY ] );
 			}
 
-			return "" + this[ ENTITY ];
+			return EMPTY_STRING + this[ ENTITY ];
 
 		}catch( error ){
 			try{
@@ -584,6 +723,11 @@ class Meta {
 		}
 	}
 
+	/*;
+		@method-documentation:
+			This will call the static deserialization procedure of the constructor.
+		@end-method-documentation
+	*/
 	deserialize( data, parser, blueprint ){
 		/*;
 			@meta-configuration:
@@ -652,6 +796,15 @@ class Meta {
 		}
 	}
 
+	/*;
+		@method-documentation:
+			Strict value equality.
+		@end-method-documentation
+
+		@note:
+			Override for deep checking.
+		@end-note
+	*/
 	isEqual( entity ){
 		/*;
 			@meta-configuration:
@@ -664,8 +817,16 @@ class Meta {
 		return this[ ENTITY ] === entity;
 	}
 
+	/*;
+		@method-documentation:
+			When the deserialization fails, or if there is error, this method returns true.
+		@end-method-documentation
+	*/
 	isCorrupted( ){
-		return this[ CORRUPTED ] === CORRUPTED;
+		return (
+			this[ CORRUPTED ] === CORRUPTED
+			|| this.hasError( )
+		);
 	}
 
 	isTagged( ){
@@ -675,20 +836,29 @@ class Meta {
 		);
 	}
 
+	/*;
+		@method-documentation:
+			If the entity is not a tag format then it's raw.
+		@end-method-documentation
+	*/
 	isRaw( ){
 		return !this.isTagged( );
 	}
 
-	isCompatible( tag ){
-		/*;
-			@meta-configuration:
-				{
-					"tag": "string"
-				}
-			@end-meta-configuration
-		*/
+	setError( error ){
+		if( error instanceof Error ){
+			this[ ERROR ] = error;
+		}
 
-		return true;
+		return this;
+	}
+
+	getError( ){
+		return this[ ERROR ];
+	}
+
+	hasError( ){
+		return this[ ERROR ] instanceof Error;
 	}
 }
 
@@ -707,5 +877,7 @@ harden( "CORRUPTED", CORRUPTED, Meta );
 harden( "TAGGED", TAGGED, Meta );
 
 harden( "TAG_PATTERN", TAG_PATTERN, Meta );
+
+harden( "DATA_URL_TAG", DATA_URL_TAG, Meta );
 
 module.exports = Meta;
