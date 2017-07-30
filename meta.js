@@ -110,12 +110,16 @@ class Meta {
 			@end-meta-configuration
 		*/
 
-		if(
+		if( (
+			typeof instance == "function"
+			&& typeof blueprint == "function"
+			&& instance.name === blueprint.name
+		) || (
 			typeof instance == "object"
 			&& instance != null
 			&& typeof blueprint == "function"
 			&& instance.constructor.name === blueprint.name
-		){
+		) ){
 			return true;
 		}
 
@@ -739,6 +743,11 @@ class Meta {
 				}
 			}while( entity = Object.getPrototypeOf( entity ) );
 
+			/*;
+				@note:
+					If you removed the condition, this may cause unwanted behavior.
+				@end-note
+			*/
 			if( this.constructor.name != blueprint ){
 				let entity = this;
 
