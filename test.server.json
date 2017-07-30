@@ -5,15 +5,15 @@
 		"passes": 1,
 		"pending": 0,
 		"failures": 0,
-		"start": "2017-07-30T11:24:12.125Z",
-		"end": "2017-07-30T11:24:12.131Z",
-		"duration": 6
+		"start": "2017-07-30T17:00:47.374Z",
+		"end": "2017-07-30T17:00:47.379Z",
+		"duration": 5
 	},
 	"tests": [
 		{
 			"title": "should return Meta class",
 			"fullTitle": "ehm `ehm( )` should return Meta class",
-			"duration": 0,
+			"duration": 1,
 			"currentRetry": 0,
 			"err": {}
 		}
@@ -24,7 +24,7 @@
 		{
 			"title": "should return Meta class",
 			"fullTitle": "ehm `ehm( )` should return Meta class",
-			"duration": 0,
+			"duration": 1,
 			"currentRetry": 0,
 			"err": {}
 		}

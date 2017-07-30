@@ -727,25 +727,32 @@ class Meta {
 				return true;
 			}
 
-			while( entity = Object.getPrototypeOf( entity ) ){
-				if(
+			do{
+				if( (
+					typeof entity == "function"
+					&& entity.name === blueprint
+				) || (
 					typeof entity.constructor == "function"
 					&& entity.constructor.name === blueprint
-				){
+				) ){
 					return true;
 				}
-			}
+			}while( entity = Object.getPrototypeOf( entity ) );
 
 			if( this.constructor.name != blueprint ){
 				let entity = this;
-				while( entity = Object.getPrototypeOf( entity ) ){
-					if(
+
+				do{
+					if( (
+						typeof entity == "function"
+						&& entity.name === blueprint
+					) || (
 						typeof entity.constructor == "function"
 						&& entity.constructor.name === blueprint
-					){
+					) ){
 						return true;
 					}
-				}
+				}while( entity = Object.getPrototypeOf( entity ) );
 			}
 
 			return false;
