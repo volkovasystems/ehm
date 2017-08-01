@@ -953,7 +953,7 @@ class Meta {
 	}
 
 	hasError( ){
-		return this[ ERROR ].length > 1;
+		return this[ ERROR ].length > 0;
 	}
 
 	transferError( container ){
