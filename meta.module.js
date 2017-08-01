@@ -413,7 +413,7 @@ class Meta {
 					)
 				);
 			} )
-			.concat( defer );
+			.concat( defer )[ 0 ];
 
 		try{
 			return Meta.create( blueprint, parser( data ) );
