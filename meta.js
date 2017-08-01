@@ -201,25 +201,32 @@ class Meta {
 			blueprint = this;
 		}
 
-		let data = new blueprint( entity );
+		try{
+			let data = new blueprint( entity );
 
-		if( TAG_PATTERN.test( data.stringify( ) ) ){
-			state.push( TAGGED );
-		}
-
-		let index = state.length;
-		while( index-- ){
-			let status = state[ index ];
-
-			if( status instanceof Error ){
-				data.setError( status );
-
-			}else{
-				harden( status, status, data );
+			if( TAG_PATTERN.test( data.stringify( ) ) ){
+				state.push( TAGGED );
 			}
-		}
 
-		return Object.freeze( data );
+			let index = state.length;
+			while( index-- ){
+				let status = state[ index ];
+
+				if( status instanceof Error ){
+					data.setError( status );
+
+				}else{
+					harden( status, status, data );
+				}
+			}
+
+			return Object.freeze( data );
+
+		}catch( error ){
+			state.push( new Error( `cannot wrap data, ${ error.stack }` ) );
+
+			return Meta.create( this, entity, state );
+		}
 	}
 
 	/*;
