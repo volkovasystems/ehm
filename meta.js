@@ -637,6 +637,15 @@ class Meta {
 
 	/*;
 		@method-documentation:
+			Returns the object conversion of this data.
+		@end-method-documentation
+	*/
+	toObject( ){
+		return this[ OBJECT ];
+	}
+
+	/*;
+		@method-documentation:
 			Returns the boolean conversion of this data.
 		@end-method-documentation
 
