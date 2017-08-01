@@ -393,7 +393,7 @@ class Meta {
 					return value;
 
 				}catch( error ){
-					throw new Error( `cannot parse, ${ data }, ${ error.stack }` );
+					throw new Error( `cannot parse data, ${ data }, ${ error.stack }` );
 				}
 			}
 
@@ -493,6 +493,8 @@ class Meta {
 		this[ TYPE ] = type;
 		this[ NAME ] = name;
 		this[ ENTITY ] = entity;
+
+		this[ ERROR ] = [ ];
 
 		return this;
 	}
@@ -932,18 +934,44 @@ class Meta {
 
 	setError( error ){
 		if( error instanceof Error ){
-			this[ ERROR ] = error;
+			this.pushError( error );
+		}
+
+		return this;
+	}
+
+	pushError( error ){
+		if( error instanceof Error ){
+			this[ ERROR ].push( error );
 		}
 
 		return this;
 	}
 
 	getError( ){
-		return this[ ERROR ];
+		return this[ ERROR ].reverse( )[ 0 ];
 	}
 
 	hasError( ){
-		return this[ ERROR ] instanceof Error;
+		return this[ ERROR ].length > 1;
+	}
+
+	transferError( container ){
+		/*;
+			@meta-configuration:
+				{
+					"container": Array
+				}
+			@end-meta-configuration
+		*/
+
+		if( container instanceof Array ){
+			let list = this[ ERROR ].reverse( );
+			let index = list.length;
+			while( index-- ) container.push( list[ index ] );
+		}
+
+		return this;
 	}
 
 	/*;
@@ -951,8 +979,16 @@ class Meta {
 			Returns the clone of this data.
 		@end-method-documentation
 	*/
-	clone( ){
-		return Meta.create( this.constructor, this.valueOf( ) );
+	clone( state ){
+		/*;
+			@meta-configuration:
+				{
+					"state": Array
+				}
+			@end-meta-configuration
+		*/
+
+		return Meta.create( this.constructor, this.valueOf( ), state );
 	}
 
 	/*;
@@ -960,8 +996,36 @@ class Meta {
 			Returns the Meta instance of this data.
 		@end-method-documentation
 	*/
-	native( ){
-		return Meta.create( this.valueOf( ) );
+	native( state ){
+		/*;
+			@meta-configuration:
+				{
+					"state": Array
+				}
+			@end-meta-configuration
+		*/
+
+		return Meta.create( Meta, this.valueOf( ), state );
+	}
+
+	/*;
+		@method-documentation:
+			Reverts to the Meta instance of this data,
+				passing the incurred state from previous.
+		@end-method-documentation
+	*/
+	revert( ){
+		let state = [ ];
+
+		if( this.isCorrupted( ) ){
+			state.push( CORRUPTED );
+		}
+
+		if( this.hasError( ) ){
+			this.transferError( state );
+		}
+
+		return this.native( state );
 	}
 
 	getType( ){
