@@ -74,6 +74,7 @@ const GARBAGE = Symbol( "garbage" );
 const CORRUPTED = Symbol( "corrupted" );
 const TAGGED = Symbol( "tagged" );
 
+const ARGUMENTS_PATTERN = /^\[object Arguments\]$/;
 const CLASS_NAME_PATTERN = /^[A-Z][a-zA-Z0-9]+$/;
 const DATA_URL_PATTERN = /^data\:[a-z][\-a-z0-9]+\/([a-z][\-a-z0-9]+)(?:\;base64)?\,/;
 const EVAL_USAGE_PATTERN = /\beval\(.*?\)|\beval\b/gm;
@@ -231,6 +232,156 @@ class Meta {
 
 	/*;
 		@static-method-documentation:
+			Default generic deserialization parser.
+		@end-static-method-documentation
+	*/
+	static parser( data ){
+		/*;
+			@meta-configuration:
+				{
+					"data:required": "string"
+				}
+			@end-meta-configuration
+		*/
+
+		if( typeof data != "string" ){
+			throw new Error( `cannot parse data, ${ data }` );
+		}
+
+		try{
+			let token = data.match( TAG_PATTERN ) || [ ];
+			let type = token[ 1 ] || "undefined";
+			let value = token[ 2 ] || EMPTY_STRING;
+
+			if( value == EMPTY_STRING ){
+				value = data;
+			}
+
+			/*;
+				@note:
+					If the value is a data url format, try to decode it.
+
+					Ensure that we have the correct type.
+				@end-note
+			*/
+			if( DATA_URL_PATTERN.test( value ) ){
+				type = ( value.match( DATA_URL_PATTERN ) || [ ] )[ 1 ] || type;
+				value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), EMPTY_STRING );
+				value = sxty4( value ).decode( );
+			}
+
+			switch( type ){
+				case "boolean":
+					if( value.toLowerCase( ) == "true" ){
+						return true;
+					}
+
+					if( value.toLowerCase( ) == "false" ){
+						return false;
+					}
+
+					throw new Error( `cannot parse boolean, ${ value }` );
+
+				case "function":
+					try{
+						if( EVAL_USAGE_PATTERN.test( value ) ){
+							throw new Error( "cannot parse function, contains eval, potential security issue" );
+						}
+
+						if( FUNCTION_CLASS_USAGE_PATTERN.test( value ) ){
+							throw new Error( "cannot parse function, contains function class, potential security issue" );
+						}
+
+						let method = ( new Function( "return " + value ) )( );
+
+						if( typeof method != "function" ){
+							return function( ){ throw new Error( `no operation done, ${ value }` ); };
+						}
+
+						return method;
+
+					}catch( error ){
+						throw new Error( `cannot parse function, ${ value }, ${ error.stack }` );
+					}
+
+				case "number":
+					try{
+						if( value == "Infinity" ){
+							return Infinity;
+						}
+
+						if( value == "NaN" ){
+							return NaN;
+						}
+
+						if( FLOAT_NUMBER_PATTERN.test( value ) ){
+							return parseFloat( value );
+						}
+
+						if( !FLOAT_NUMBER_PATTERN.test( value ) ){
+							return parseInt( value );
+						}
+
+						throw new Error( `cannot parse number, ${ value }` );
+
+					}catch( error ){
+						throw new Error( `cannot parse number, ${ value }, ${ error.stack }` );
+					}
+
+				case "object":
+					if( value == "null" ){
+						return null;
+					}
+
+					try{
+						value = JSON.parse( value );
+
+						/*;
+							This is the specification for the basic
+								meta object structure.
+						*/
+						if(
+							"type" in value && typeof value.name == "string"
+							&& "name" in value && typeof value.name == "string"
+							&& "value" in value && typeof value.value == "string"
+							&& "format" in value && typeof value.format == "string"
+							&& value.format == DATA_URL_TAG
+							&& TAG_PATTERN.test( value.value )
+						){
+							return Meta.deserialize( value.value ).valueOf( );
+						}
+
+						return value;
+
+					}catch( error ){
+						return new Error( `cannot parse object, ${ value }, ${ error.stack }` );
+					}
+
+				case "string":
+					return value;
+
+				case "symbol":
+					let symbol = ( ( value.match( SYMBOL_PATTERN ) || [ ] )[ 1 ] || EMPTY_STRING ).trim( );
+
+					if( symbol == EMPTY_STRING ){
+						throw new Error( `cannot parse symbol, ${ value }` );
+					}
+
+					return Symbol( symbol );
+
+				case "undefined":
+					return undefined;
+			}
+
+		}catch( error ){
+			throw new Error( `cannot parse data, ${ data }, ${ error.stack }` );
+		}
+
+		throw new Error( `cannot parse data, ${ data }` );
+	}
+
+	/*;
+		@static-method-documentation:
 			Generic meta data deserialization.
 		@end-static-method-documentation
 	*/
@@ -245,10 +396,50 @@ class Meta {
 			@end-meta-configuration
 		*/
 
-		let parameter = Array.from( arguments );
+		var [ data, parser, defer, blueprint ] = Meta.__deserializeDefer__( arguments, this, Meta.parser );
 
-		if( arguments.length == 2 ){
-			parameter = [ arguments[ 0 ], undefined, arguments[ 1 ] ];
+		try{
+			return Meta.create( blueprint, parser( data ) );
+
+		}catch( error ){
+			return Meta.create( blueprint, defer( data ), [ CORRUPTED, error ] );
+		}
+	}
+
+	static __deserializeDefer__( parameter, blueprint, parser ){
+		/*;
+			@meta-configuration:
+				{
+					"parameter:required": Arguments,
+					"blueprint:required": "function",
+					"parser:required": "function"
+				}
+			@end-meta-configuration
+		*/
+
+		if( !ARGUMENTS_PATTERN.test( parameter ) ){
+			throw new Error( "invalid parameter" );
+		}
+
+		if( typeof blueprint != "function" ){
+			throw new Error( "invalid blueprint" );
+		}
+
+		if( typeof parser != "function" ){
+			throw new Error( "invalid parser" );
+		}
+
+		let argument = parameter;
+
+		try{
+			parameter = Array.from( parameter );
+
+		}catch( error ){
+			throw new Error( `cannot process parameter, ${ error.stack }` );
+		}
+
+		if( argument.length == 2 ){
+			parameter = [ argument[ 0 ], undefined, argument[ 1 ] ];
 		}
 
 		blueprint = parameter.splice( 1 )
@@ -261,144 +452,9 @@ class Meta {
 					&& CLASS_NAME_PATTERN.test( parameter.name )
 				);
 			} )
-			.concat( this )[ 0 ];
+			.concat( blueprint )[ 0 ];
 
-	 	let defer = function parser( data ){
-			if( typeof data == "string" ){
-				try{
-					let token = data.match( TAG_PATTERN ) || [ ];
-					let type = token[ 1 ] || "undefined";
-					let value = token[ 2 ] || EMPTY_STRING;
-
-					if( value == EMPTY_STRING ){
-						value = data;
-					}
-
-					/*;
-						@note:
-							If the value is a data url format, try to decode it.
-
-							Ensure that we have the correct type.
-						@end-note
-					*/
-					if( DATA_URL_PATTERN.test( value ) ){
-						type = ( value.match( DATA_URL_PATTERN ) || [ ] )[ 1 ] || type;
-						value = value.replace( DEFAULT_DATA_URL_PREFIX.replace( "@type", type ), EMPTY_STRING );
-						value = sxty4( value ).decode( );
-					}
-
-					switch( type ){
-						case "boolean":
-							if( value.toLowerCase( ) == "true" ){
-								return true;
-							}
-
-							if( value.toLowerCase( ) == "false" ){
-								return false;
-							}
-
-							throw new Error( `cannot parse boolean, ${ value }` );
-
-						case "function":
-							try{
-								if( EVAL_USAGE_PATTERN.test( value ) ){
-									throw new Error( "cannot parse function, contains eval, potential security issue" );
-								}
-
-								if( FUNCTION_CLASS_USAGE_PATTERN.test( value ) ){
-									throw new Error( "cannot parse function, contains function class, potential security issue" );
-								}
-
-								let method = ( new Function( "return " + value ) )( );
-
-								if( typeof method != "function" ){
-									return function( ){ throw new Error( `no operation done, ${ value }` ); };
-								}
-
-								return method;
-
-							}catch( error ){
-								throw new Error( `cannot parse function, ${ value }, ${ error.stack }` );
-							}
-
-						case "number":
-							try{
-								if( value == "Infinity" ){
-									return Infinity;
-								}
-
-								if( value == "NaN" ){
-									return NaN;
-								}
-
-								if( FLOAT_NUMBER_PATTERN.test( value ) ){
-									return parseFloat( value );
-								}
-
-								if( !FLOAT_NUMBER_PATTERN.test( value ) ){
-									return parseInt( value );
-								}
-
-								throw new Error( `cannot parse number, ${ value }` );
-
-							}catch( error ){
-								throw new Error( `cannot parse number, ${ value }, ${ error.stack }` );
-							}
-
-						case "object":
-							if( value == "null" ){
-								return null;
-							}
-
-							try{
-								value = JSON.parse( value );
-
-								/*;
-									This is the specification for the basic
-										meta object structure.
-								*/
-								if(
-									"type" in value && typeof value.name == "string"
-									&& "name" in value && typeof value.name == "string"
-									&& "value" in value && typeof value.value == "string"
-									&& "format" in value && typeof value.format == "string"
-									&& value.format == DATA_URL_TAG
-									&& TAG_PATTERN.test( value.value )
-								){
-									return Meta.deserialize( value.value ).valueOf( );
-								}
-
-								return value;
-
-							}catch( error ){
-								return new Error( `cannot parse object, ${ value }, ${ error.stack }` );
-							}
-
-						case "symbol":
-							let symbol = ( ( value.match( SYMBOL_PATTERN ) || [ ] )[ 1 ] || EMPTY_STRING ).trim( );
-
-							if( symbol == EMPTY_STRING ){
-								throw new Error( `cannot parse symbol, ${ value }` );
-							}
-
-							return Symbol( symbol );
-
-						case "string":
-							return value;
-
-						case "undefined":
-							return undefined;
-					}
-
-					return value;
-
-				}catch( error ){
-					throw new Error( `cannot parse data, ${ data }, ${ error.stack }` );
-				}
-			}
-
-			return data;
-		};
+		let defer = parser;
 
 		parser = parameter.splice( 1 )
 			.filter( ( parameter ) => {
@@ -415,12 +471,7 @@ class Meta {
 			} )
 			.concat( defer )[ 0 ];
 
-		try{
-			return Meta.create( blueprint, parser( data ) );
-
-		}catch( error ){
-			return Meta.create( blueprint, defer( data ), [ CORRUPTED, error ] );
-		}
+		return [ parameter[ 0 ], parser, defer, blueprint ];
 	}
 
 	/*;
@@ -548,7 +599,7 @@ class Meta {
 	*/
 
 	get [ Symbol.toStringTag ]( ){
-		return this[ NAME ];
+		return this.getName( );
 	}
 
 	/*;
@@ -565,8 +616,8 @@ class Meta {
 	*/
 	get [ OBJECT ]( ){
 		return Object.freeze( {
-			"type": this[ TYPE ],
-			"name": this[ NAME ],
+			"type": this.getType( ),
+			"name": this.getName( ),
 			"value": this.serialize( ),
 			"format": DATA_URL_TAG
 		} );
@@ -621,7 +672,7 @@ class Meta {
 			value = `:${ value }`;
 		}
 
-		return `[${ this[ TYPE ] } ${ this[ NAME ] }:@value]`.replace( ":@value", value );
+		return `[${ this.getType( ) } ${ this.getName( ) }:@value]`.replace( ":@value", value );
 	}
 
 	/*;
@@ -799,7 +850,7 @@ class Meta {
 	*/
 	stringify( ){
 		try{
-			if( this[ TYPE ] == "object" ){
+			if( this.getType( ) == "object" ){
 				return JSON.stringify( this.valueOf( ) );
 			}
 
@@ -850,38 +901,53 @@ class Meta {
 	}
 
 	/*;
-		@method-documentation:
-			Returns a tag format with value.
-			The value must be a data URL format.
-
-			The parser function will accept a context parameter.
-
-			By default this will serialize the entity using plain/text base64 data URL format.
-
-			The parser must return a serialize format of the data to be placed on the tag.
-		@end-method-documentation
+		@static-method-documentation:
+			Default generic serialization interpreter.
+		@end-static-method-documentation
 	*/
-	serialize( parser ){
+	static interpreter( self ){
 		/*;
 			@meta-configuration:
 				{
-					"parser": "function"
+					"self": Meta
 				}
 			@end-meta-configuration
 		*/
 
-		let defer = function parser( self ){
-			let value = sxty4( self.stringify( ) ).encode( );
+		let value = sxty4( self.stringify( ) ).encode( );
 
-			return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self[ TYPE ] ) }${ value }`;
-		};
+		return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self[ TYPE ] ) }${ value }`;
+	}
 
-		if( typeof parser != "function" ){
-			parser = defer;
+	/*;
+		@method-documentation:
+			Returns a tag format with value.
+			The value must be a data URL format.
+
+			The interpreter function will accept a context parameter.
+
+			By default this will serialize the entity using plain/text base64 data URL format.
+
+			The interpreter must return a serialize format of the data to be placed on the tag.
+		@end-method-documentation
+	*/
+	serialize( interpreter ){
+		/*;
+			@meta-configuration:
+				{
+					"interpreter": "function"
+				}
+			@end-meta-configuration
+		*/
+
+		let defer = Meta.interpreter;
+
+		if( typeof interpreter != "function" ){
+			interpreter = defer;
 		}
 
 		try{
-			return this.tag( parser( this ) );
+			return this.tag( interpreter( this ) );
 
 		}catch( error ){
 			return this.tag( defer( this ) );
