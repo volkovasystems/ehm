@@ -341,7 +341,7 @@ class Meta {
 								meta object structure.
 						*/
 						if(
-							"type" in value && typeof value.name == "string"
+							"type" in value && typeof value.type == "string"
 							&& "name" in value && typeof value.name == "string"
 							&& "value" in value && typeof value.value == "string"
 							&& "format" in value && typeof value.format == "string"
@@ -442,7 +442,7 @@ class Meta {
 			parameter = [ argument[ 0 ], undefined, argument[ 1 ] ];
 		}
 
-		blueprint = parameter.splice( 1 )
+		blueprint = parameter.slice( 1 )
 			.filter( ( parameter ) => {
 				return (
 					typeof parameter == "function"
@@ -456,7 +456,7 @@ class Meta {
 
 		let defer = parser;
 
-		parser = parameter.splice( 1 )
+		parser = parameter.slice( 1 )
 			.filter( ( parameter ) => {
 				return (
 					typeof parameter == "function"
@@ -916,7 +916,7 @@ class Meta {
 
 		let value = sxty4( self.stringify( ) ).encode( );
 
-		return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self[ TYPE ] ) }${ value }`;
+		return `${ DEFAULT_DATA_URL_PREFIX.replace( "@type", self.getType( ) ) }${ value }`;
 	}
 
 	/*;
