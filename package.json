@@ -1,6 +1,6 @@
 {
 	"name": "ehm",
-	"version": "0.20.0",
+	"version": "0.21.0",
 	"description": "Meta object class construct.",
 	"main": "ehm.js",
 	"support": "ehm.support.js",
@@ -37,6 +37,9 @@
 		"ehm"
 	],
 	"author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+	"contributors": [
+		"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+	],
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/volkovasystems/ehm/issues"
