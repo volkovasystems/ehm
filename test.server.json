@@ -1,19 +1,33 @@
 {
 	"stats": {
-		"suites": 2,
-		"tests": 1,
-		"passes": 1,
+		"suites": 4,
+		"tests": 3,
+		"passes": 3,
 		"pending": 0,
 		"failures": 0,
-		"start": "2017-08-07T11:53:16.851Z",
-		"end": "2017-08-07T11:53:16.856Z",
-		"duration": 5
+		"start": "2017-09-01T10:23:17.822Z",
+		"end": "2017-09-01T10:23:17.831Z",
+		"duration": 9
 	},
 	"tests": [
 		{
 			"title": "should return Meta class",
 			"fullTitle": "ehm `ehm( )` should return Meta class",
 			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
+			"duration": 3,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
+			"duration": 2,
 			"currentRetry": 0,
 			"err": {}
 		}
@@ -25,6 +39,20 @@
 			"title": "should return Meta class",
 			"fullTitle": "ehm `ehm( )` should return Meta class",
 			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
+			"duration": 3,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
+			"duration": 2,
 			"currentRetry": 0,
 			"err": {}
 		}

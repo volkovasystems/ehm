@@ -81,6 +81,30 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
+
+			assert.equal( Meta.create( "helloworld" ).serialize( ), Meta.create( "helloworld" ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
 } );
 
 //: @end-server
@@ -97,6 +121,31 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta, "function" );
 
 			assert.equal( Meta.name, "Meta" );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
+
+			assert.equal( Meta.create( "helloworld" ).serialize( ), Meta.create( "helloworld" ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
 		} );
 	} );
 
@@ -118,6 +167,66 @@ describe( "ehm", ( ) => {
 			//: @end-ignore
 
 			assert.equal( browser.url( bridgeURL ).execute( ( ) => ehm( ).name ).value, "Meta" );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA= browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return typeof Meta.create( "helloworld" ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return Meta.create( "helloworld" ).serialize( ) === Meta.create( "helloworld" ).serialize( );
+				}
+
+			).value;
+
+			assert.equal( testB, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+
+					let Meta = ehm( );
+					return typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( );
+
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+
+					let Meta = ehm( );
+					return Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) === Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( );
+
+				}
+
+			).value;
+
+			assert.equal( testB, true );
 
 		} );
 	} );

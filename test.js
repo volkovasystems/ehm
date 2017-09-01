@@ -77,6 +77,30 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
+
+			assert.equal( Meta.create( "helloworld" ).serialize( ), Meta.create( "helloworld" ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return string type", ( ) => {
+
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
 } );
 
 //: @end-server

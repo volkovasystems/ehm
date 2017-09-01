@@ -1,11 +1,11 @@
 {
 	"state": {
-		"passed": 1,
+		"passed": 3,
 		"failed": 0,
 		"skipped": 0
 	},
-	"start": "2017-08-07T11:53:18.072Z",
-	"end": "2017-08-07T11:53:54.406Z",
+	"start": "2017-09-01T10:23:18.919Z",
+	"end": "2017-09-01T10:23:28.039Z",
 	"capabilities": {
 		"browserName": "chrome",
 		"chromeOptions": {
@@ -28,36 +28,68 @@
 		{
 			"name": "ehm",
 			"duration": 0,
-			"start": "2017-08-07T11:53:53.134Z",
+			"start": "2017-09-01T10:23:25.941Z",
 			"tests": [],
 			"hooks": []
 		},
 		{
 			"name": "ehm",
-			"duration": 1087,
-			"start": "2017-08-07T11:53:53.136Z",
-			"end": "2017-08-07T11:53:54.223Z",
+			"duration": 1922,
+			"start": "2017-09-01T10:23:25.941Z",
+			"end": "2017-09-01T10:23:27.863Z",
 			"tests": [],
 			"hooks": [
 				{
-					"start": "2017-08-07T11:53:53.137Z",
-					"end": "2017-08-07T11:53:53.137Z",
+					"start": "2017-09-01T10:23:25.943Z",
+					"end": "2017-09-01T10:23:25.943Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return Meta class"
 				},
 				{
-					"start": "2017-08-07T11:53:54.222Z",
-					"end": "2017-08-07T11:53:54.222Z",
+					"start": "2017-09-01T10:23:27.654Z",
+					"end": "2017-09-01T10:23:27.654Z",
 					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return Meta class"
 				},
 				{
-					"start": "2017-08-07T11:53:54.223Z",
-					"end": "2017-08-07T11:53:54.223Z",
+					"start": "2017-09-01T10:23:27.655Z",
+					"end": "2017-09-01T10:23:27.655Z",
+					"duration": 0,
+					"title": "\"before each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-01T10:23:27.760Z",
+					"end": "2017-09-01T10:23:27.760Z",
+					"duration": 0,
+					"title": "\"after each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-01T10:23:27.760Z",
+					"end": "2017-09-01T10:23:27.760Z",
+					"duration": 0,
+					"title": "\"before each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-01T10:23:27.863Z",
+					"end": "2017-09-01T10:23:27.863Z",
+					"duration": 0,
+					"title": "\"after each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-01T10:23:27.863Z",
+					"end": "2017-09-01T10:23:27.863Z",
 					"duration": 0,
 					"title": "\"after all\" hook",
 					"associatedSuite": "ehm"
@@ -66,15 +98,47 @@
 		},
 		{
 			"name": "`ehm( )`",
-			"duration": 1087,
-			"start": "2017-08-07T11:53:53.136Z",
-			"end": "2017-08-07T11:53:54.223Z",
+			"duration": 1713,
+			"start": "2017-09-01T10:23:25.942Z",
+			"end": "2017-09-01T10:23:27.655Z",
 			"tests": [
 				{
 					"name": "should return Meta class",
-					"start": "2017-08-07T11:53:53.137Z",
-					"end": "2017-08-07T11:53:54.222Z",
-					"duration": 1085,
+					"start": "2017-09-01T10:23:25.942Z",
+					"end": "2017-09-01T10:23:27.654Z",
+					"duration": 1712,
+					"state": "pass"
+				}
+			],
+			"hooks": []
+		},
+		{
+			"name": "`ehm( ).create( 'helloworld' ).serialize( )`",
+			"duration": 105,
+			"start": "2017-09-01T10:23:27.655Z",
+			"end": "2017-09-01T10:23:27.760Z",
+			"tests": [
+				{
+					"name": "should return string type",
+					"start": "2017-09-01T10:23:27.655Z",
+					"end": "2017-09-01T10:23:27.760Z",
+					"duration": 105,
+					"state": "pass"
+				}
+			],
+			"hooks": []
+		},
+		{
+			"name": "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`",
+			"duration": 103,
+			"start": "2017-09-01T10:23:27.760Z",
+			"end": "2017-09-01T10:23:27.863Z",
+			"tests": [
+				{
+					"name": "should return string type",
+					"start": "2017-09-01T10:23:27.760Z",
+					"end": "2017-09-01T10:23:27.863Z",
+					"duration": 103,
 					"state": "pass"
 				}
 			],
