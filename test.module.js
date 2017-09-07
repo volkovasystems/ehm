@@ -51,7 +51,7 @@
 	@end-include
 */
 
-const assert = require( "should" );
+const assert = require( "should/as-function" );
 
 //: @server:
 const ehm = require( "./ehm.js" );
@@ -67,7 +67,6 @@ const path = require( "path" );
 
 
 //: @server:
-
 describe( "ehm", ( ) => {
 
 	describe( "`ehm( )`", ( ) => {
@@ -83,7 +82,6 @@ describe( "ehm", ( ) => {
 
 	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
-
 			let Meta = ehm( );
 
 			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
@@ -93,9 +91,63 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( 1 ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( 1 ).serialize( ), "string" );
+
+			assert.equal( Meta.create( 1 ).serialize( ), Meta.create( 1 ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( true ).serialize( ), "string" );
+
+			assert.equal( Meta.create( true ).serialize( ), Meta.create( true ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( { 'hello': 'world' } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( { "hello": "world" } ).serialize( ), "string" );
+
+			assert.equal( Meta.create( { "hello": "world" } ).serialize( ), Meta.create( { "hello": "world" } ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Symbol.for( "hello" ) ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Symbol.for( "hello" ) ).serialize( ), Meta.create( Symbol.for( "hello" ) ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( function hello( ){ } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( function hello( ){ } ).serialize( ), "string" );
+
+			assert.equal( Meta.create( function hello( ){ } ).serialize( ), Meta.create( function hello( ){ } ).serialize( ) );
+
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
-
 			let Meta = ehm( );
 
 			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
@@ -106,12 +158,10 @@ describe( "ehm", ( ) => {
 	} );
 
 } );
-
 //: @end-server
 
 
 //: @client:
-
 describe( "ehm", ( ) => {
 
 	describe( "`ehm( )`", ( ) => {
@@ -127,7 +177,6 @@ describe( "ehm", ( ) => {
 
 	describe( "`ehm( ).create( 'helloworld' ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
-
 			let Meta = ehm( );
 
 			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
@@ -137,9 +186,63 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( 1 ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( 1 ).serialize( ), "string" );
+
+			assert.equal( Meta.create( 1 ).serialize( ), Meta.create( 1 ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( true ).serialize( ), "string" );
+
+			assert.equal( Meta.create( true ).serialize( ), Meta.create( true ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( { 'hello': 'world' } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( { "hello": "world" } ).serialize( ), "string" );
+
+			assert.equal( Meta.create( { "hello": "world" } ).serialize( ), Meta.create( { "hello": "world" } ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Symbol.for( "hello" ) ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Symbol.for( "hello" ) ).serialize( ), Meta.create( Symbol.for( "hello" ) ).serialize( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( function hello( ){ } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( function hello( ){ } ).serialize( ), "string" );
+
+			assert.equal( Meta.create( function hello( ){ } ).serialize( ), Meta.create( function hello( ){ } ).serialize( ) );
+
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
-
 			let Meta = ehm( );
 
 			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
@@ -150,7 +253,6 @@ describe( "ehm", ( ) => {
 	} );
 
 } );
-
 //: @end-client
 
 
