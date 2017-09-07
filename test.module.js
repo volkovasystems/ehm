@@ -150,9 +150,42 @@ describe( "ehm", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
 
-			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), "string" );
 
 			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return number type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), "number" );
+
+			assert.equal( Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return boolean type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), "boolean" );
+
+			assert.equal( Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), "object" );
+
+			assert.deepEqual( Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ) );
 
 		} );
 	} );
@@ -245,9 +278,42 @@ describe( "ehm", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
 
-			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), "string" );
 
 			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return number type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), "number" );
+
+			assert.equal( Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return boolean type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), "boolean" );
+
+			assert.equal( Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ) );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), "object" );
+
+			assert.deepEqual( Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ) );
 
 		} );
 	} );

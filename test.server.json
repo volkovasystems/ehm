@@ -1,13 +1,13 @@
 {
   "stats": {
-    "suites": 9,
-    "tests": 8,
-    "passes": 8,
+    "suites": 12,
+    "tests": 11,
+    "passes": 11,
     "pending": 0,
     "failures": 0,
-    "start": "2017-09-07T09:00:14.068Z",
-    "end": "2017-09-07T09:00:14.082Z",
-    "duration": 14
+    "start": "2017-09-07T09:34:34.588Z",
+    "end": "2017-09-07T09:34:34.606Z",
+    "duration": 18
   },
   "tests": [
     {
@@ -41,7 +41,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
@@ -63,6 +63,27 @@
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
       "duration": 2,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return number type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return boolean type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
+      "duration": 1,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return object type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     }
@@ -101,7 +122,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
@@ -123,6 +144,27 @@
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
       "duration": 2,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return number type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return boolean type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
+      "duration": 1,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return object type",
+      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     }
