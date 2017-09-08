@@ -1,172 +1,172 @@
 {
-  "stats": {
-    "suites": 12,
-    "tests": 11,
-    "passes": 11,
-    "pending": 0,
-    "failures": 0,
-    "start": "2017-09-07T09:34:34.588Z",
-    "end": "2017-09-07T09:34:34.606Z",
-    "duration": 18
-  },
-  "tests": [
-    {
-      "title": "should return Meta class",
-      "fullTitle": "ehm `ehm( )` should return Meta class",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
-      "duration": 3,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( 1 ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( true ).serialize( )` should return string type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( function hello( ){ } ).serialize( )` should return string type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
-      "duration": 2,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return number type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return boolean type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return object type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
-      "duration": 3,
-      "currentRetry": 0,
-      "err": {}
-    }
-  ],
-  "pending": [],
-  "failures": [],
-  "passes": [
-    {
-      "title": "should return Meta class",
-      "fullTitle": "ehm `ehm( )` should return Meta class",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
-      "duration": 3,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( 1 ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( true ).serialize( )` should return string type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).create( function hello( ){ } ).serialize( )` should return string type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return string type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
-      "duration": 2,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return number type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
-      "duration": 0,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return boolean type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
-      "duration": 1,
-      "currentRetry": 0,
-      "err": {}
-    },
-    {
-      "title": "should return object type",
-      "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
-      "duration": 3,
-      "currentRetry": 0,
-      "err": {}
-    }
-  ]
+	"stats": {
+		"suites": 12,
+		"tests": 11,
+		"passes": 11,
+		"pending": 0,
+		"failures": 0,
+		"start": "2017-09-08T03:15:15.744Z",
+		"end": "2017-09-08T03:15:15.761Z",
+		"duration": 17
+	},
+	"tests": [
+		{
+			"title": "should return Meta class",
+			"fullTitle": "ehm `ehm( )` should return Meta class",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
+			"duration": 4,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 1 ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( true ).serialize( )` should return string type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( function hello( ){ } ).serialize( )` should return string type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
+			"duration": 3,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return number type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return boolean type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return object type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
+			"duration": 2,
+			"currentRetry": 0,
+			"err": {}
+		}
+	],
+	"pending": [],
+	"failures": [],
+	"passes": [
+		{
+			"title": "should return Meta class",
+			"fullTitle": "ehm `ehm( )` should return Meta class",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 'helloworld' ).serialize( )` should return string type",
+			"duration": 4,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( 1 ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( true ).serialize( )` should return string type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( { 'hello': 'world' } ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
+			"duration": 1,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).create( function hello( ){ } ).serialize( )` should return string type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return string type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
+			"duration": 3,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return number type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )` should return number type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return boolean type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )` should return boolean type",
+			"duration": 0,
+			"currentRetry": 0,
+			"err": {}
+		},
+		{
+			"title": "should return object type",
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )` should return object type",
+			"duration": 2,
+			"currentRetry": 0,
+			"err": {}
+		}
+	]
 }
