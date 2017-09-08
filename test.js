@@ -82,7 +82,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( "helloworld" ).serialize( ), "string" );
 
-			assert.equal( Meta.create( "helloworld" ).serialize( ), Meta.create( "helloworld" ).serialize( ) );
+			assert.equal( Meta.create( "helloworld" ).serialize( ), "[string String:data:text/string;base64,aGVsbG93b3JsZA%3D%3D]" );
 
 		} );
 	} );
@@ -93,7 +93,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( 1 ).serialize( ), "string" );
 
-			assert.equal( Meta.create( 1 ).serialize( ), Meta.create( 1 ).serialize( ) );
+			assert.equal( Meta.create( 1 ).serialize( ), "[number Number:data:text/number;base64,MQ%3D%3D]" );
 
 		} );
 	} );
@@ -104,7 +104,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( true ).serialize( ), "string" );
 
-			assert.equal( Meta.create( true ).serialize( ), Meta.create( true ).serialize( ) );
+			assert.equal( Meta.create( true ).serialize( ), "[boolean Boolean:data:text/boolean;base64,dHJ1ZQ%3D%3D]" );
 
 		} );
 	} );
@@ -115,7 +115,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( { "hello": "world" } ).serialize( ), "string" );
 
-			assert.equal( Meta.create( { "hello": "world" } ).serialize( ), Meta.create( { "hello": "world" } ).serialize( ) );
+			assert.equal( Meta.create( { "hello": "world" } ).serialize( ), "[object Object:data:text/object;base64,eyJoZWxsbyI6IndvcmxkIn0%3D]" );
 
 		} );
 	} );
@@ -126,7 +126,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( Symbol.for( "hello" ) ).serialize( ), "string" );
 
-			assert.equal( Meta.create( Symbol.for( "hello" ) ).serialize( ), Meta.create( Symbol.for( "hello" ) ).serialize( ) );
+			assert.equal( Meta.create( Symbol.for( "hello" ) ).serialize( ), "[symbol Symbol:data:text/symbol;base64,U3ltYm9sKGhlbGxvKQ%3D%3D]" );
 
 		} );
 	} );
@@ -137,7 +137,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.create( function hello( ){ } ).serialize( ), "string" );
 
-			assert.equal( Meta.create( function hello( ){ } ).serialize( ), Meta.create( function hello( ){ } ).serialize( ) );
+			assert.equal( Meta.create( function hello( ){ } ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gaGVsbG8oICl7IH0%3D]" );
 
 		} );
 	} );
@@ -148,7 +148,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), "string" );
 
-			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ) );
+			assert.equal( Meta.deserialize( Meta.create( "helloworld" ).serialize( ) ).valueOf( ), "helloworld" );
 
 		} );
 	} );
@@ -159,7 +159,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), "number" );
 
-			assert.equal( Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ) );
+			assert.equal( Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), 1 );
 
 		} );
 	} );
@@ -170,7 +170,7 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), "boolean" );
 
-			assert.equal( Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ) );
+			assert.equal( Meta.deserialize( Meta.create( true ).serialize( ) ).valueOf( ), true );
 
 		} );
 	} );
@@ -181,8 +181,28 @@ describe( "ehm", ( ) => {
 
 			assert.equal( typeof Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), "object" );
 
-			assert.deepEqual( Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ) );
+			assert.deepEqual( Meta.deserialize( Meta.create( { "hello": "world" } ).serialize( ) ).valueOf( ), { "hello": "world" } );
 
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( Symbol.for( 'hello' ) ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return symbol type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ), "symbol" );
+
+			assert.equal( Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ).toString( ), "Symbol(hello)" );
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( ).name`", ( ) => {
+		it( "should return function type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ), "function" );
+
+			assert.equal( Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ).name, "hello" );
 		} );
 	} );
 
