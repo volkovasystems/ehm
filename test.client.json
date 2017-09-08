@@ -4,8 +4,8 @@
 		"failed": 0,
 		"skipped": 0
 	},
-	"start": "2017-09-08T05:34:50.432Z",
-	"end": "2017-09-08T05:34:55.697Z",
+	"start": "2017-09-08T06:26:56.903Z",
+	"end": "2017-09-08T06:27:02.141Z",
 	"capabilities": {
 		"browserName": "chrome",
 		"chromeOptions": {
@@ -28,197 +28,197 @@
 		{
 			"name": "ehm",
 			"duration": 0,
-			"start": "2017-09-08T05:34:54.495Z",
+			"start": "2017-09-08T06:27:00.953Z",
 			"tests": [],
 			"hooks": []
 		},
 		{
 			"name": "ehm",
-			"duration": 1025,
-			"start": "2017-09-08T05:34:54.495Z",
-			"end": "2017-09-08T05:34:55.520Z",
+			"duration": 1010,
+			"start": "2017-09-08T06:27:00.954Z",
+			"end": "2017-09-08T06:27:01.964Z",
 			"tests": [],
 			"hooks": [
 				{
-					"start": "2017-09-08T05:34:54.497Z",
-					"end": "2017-09-08T05:34:54.497Z",
+					"start": "2017-09-08T06:27:00.956Z",
+					"end": "2017-09-08T06:27:00.956Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return Meta class"
 				},
 				{
-					"start": "2017-09-08T05:34:54.671Z",
-					"end": "2017-09-08T05:34:54.672Z",
-					"duration": 1,
+					"start": "2017-09-08T06:27:01.085Z",
+					"end": "2017-09-08T06:27:01.085Z",
+					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return Meta class"
 				},
 				{
-					"start": "2017-09-08T05:34:54.672Z",
-					"end": "2017-09-08T05:34:54.672Z",
+					"start": "2017-09-08T06:27:01.086Z",
+					"end": "2017-09-08T06:27:01.086Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:54.765Z",
-					"end": "2017-09-08T05:34:54.765Z",
-					"duration": 0,
-					"title": "\"after each\" hook",
-					"associatedSuite": "ehm",
-					"associatedTest": "should return string type"
-				},
-				{
-					"start": "2017-09-08T05:34:54.765Z",
-					"end": "2017-09-08T05:34:54.766Z",
+					"start": "2017-09-08T06:27:01.166Z",
+					"end": "2017-09-08T06:27:01.167Z",
 					"duration": 1,
+					"title": "\"after each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-08T06:27:01.167Z",
+					"end": "2017-09-08T06:27:01.167Z",
+					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:54.867Z",
-					"end": "2017-09-08T05:34:54.867Z",
+					"start": "2017-09-08T06:27:01.281Z",
+					"end": "2017-09-08T06:27:01.281Z",
 					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:54.867Z",
-					"end": "2017-09-08T05:34:54.868Z",
+					"start": "2017-09-08T06:27:01.281Z",
+					"end": "2017-09-08T06:27:01.281Z",
+					"duration": 0,
+					"title": "\"before each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return string type"
+				},
+				{
+					"start": "2017-09-08T06:27:01.369Z",
+					"end": "2017-09-08T06:27:01.370Z",
 					"duration": 1,
-					"title": "\"before each\" hook",
-					"associatedSuite": "ehm",
-					"associatedTest": "should return string type"
-				},
-				{
-					"start": "2017-09-08T05:34:54.944Z",
-					"end": "2017-09-08T05:34:54.944Z",
-					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:54.944Z",
-					"end": "2017-09-08T05:34:54.945Z",
-					"duration": 1,
-					"title": "\"before each\" hook",
-					"associatedSuite": "ehm",
-					"associatedTest": "should return string type"
-				},
-				{
-					"start": "2017-09-08T05:34:55.032Z",
-					"end": "2017-09-08T05:34:55.032Z",
-					"duration": 0,
-					"title": "\"after each\" hook",
-					"associatedSuite": "ehm",
-					"associatedTest": "should return string type"
-				},
-				{
-					"start": "2017-09-08T05:34:55.032Z",
-					"end": "2017-09-08T05:34:55.032Z",
+					"start": "2017-09-08T06:27:01.371Z",
+					"end": "2017-09-08T06:27:01.371Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.112Z",
-					"end": "2017-09-08T05:34:55.112Z",
+					"start": "2017-09-08T06:27:01.459Z",
+					"end": "2017-09-08T06:27:01.459Z",
 					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.112Z",
-					"end": "2017-09-08T05:34:55.112Z",
+					"start": "2017-09-08T06:27:01.493Z",
+					"end": "2017-09-08T06:27:01.493Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.191Z",
-					"end": "2017-09-08T05:34:55.191Z",
+					"start": "2017-09-08T06:27:01.550Z",
+					"end": "2017-09-08T06:27:01.550Z",
 					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.192Z",
-					"end": "2017-09-08T05:34:55.192Z",
+					"start": "2017-09-08T06:27:01.550Z",
+					"end": "2017-09-08T06:27:01.550Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.279Z",
-					"end": "2017-09-08T05:34:55.279Z",
+					"start": "2017-09-08T06:27:01.626Z",
+					"end": "2017-09-08T06:27:01.626Z",
 					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return string type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.279Z",
-					"end": "2017-09-08T05:34:55.280Z",
+					"start": "2017-09-08T06:27:01.626Z",
+					"end": "2017-09-08T06:27:01.627Z",
 					"duration": 1,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return number type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.359Z",
-					"end": "2017-09-08T05:34:55.360Z",
-					"duration": 1,
+					"start": "2017-09-08T06:27:01.703Z",
+					"end": "2017-09-08T06:27:01.703Z",
+					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return number type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.360Z",
-					"end": "2017-09-08T05:34:55.360Z",
-					"duration": 0,
+					"start": "2017-09-08T06:27:01.703Z",
+					"end": "2017-09-08T06:27:01.705Z",
+					"duration": 2,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return boolean type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.442Z",
-					"end": "2017-09-08T05:34:55.443Z",
-					"duration": 1,
+					"start": "2017-09-08T06:27:01.793Z",
+					"end": "2017-09-08T06:27:01.793Z",
+					"duration": 0,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return boolean type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.443Z",
-					"end": "2017-09-08T05:34:55.443Z",
+					"start": "2017-09-08T06:27:01.793Z",
+					"end": "2017-09-08T06:27:01.793Z",
 					"duration": 0,
 					"title": "\"before each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return object type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.520Z",
-					"end": "2017-09-08T05:34:55.520Z",
-					"duration": 0,
+					"start": "2017-09-08T06:27:01.868Z",
+					"end": "2017-09-08T06:27:01.869Z",
+					"duration": 1,
 					"title": "\"after each\" hook",
 					"associatedSuite": "ehm",
 					"associatedTest": "should return object type"
 				},
 				{
-					"start": "2017-09-08T05:34:55.520Z",
-					"end": "2017-09-08T05:34:55.521Z",
+					"start": "2017-09-08T06:27:01.869Z",
+					"end": "2017-09-08T06:27:01.870Z",
 					"duration": 1,
+					"title": "\"before each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return symbol type"
+				},
+				{
+					"start": "2017-09-08T06:27:01.964Z",
+					"end": "2017-09-08T06:27:01.964Z",
+					"duration": 0,
+					"title": "\"after each\" hook",
+					"associatedSuite": "ehm",
+					"associatedTest": "should return symbol type"
+				},
+				{
+					"start": "2017-09-08T06:27:01.964Z",
+					"end": "2017-09-08T06:27:01.964Z",
+					"duration": 0,
 					"title": "\"after all\" hook",
 					"associatedSuite": "ehm"
 				}
@@ -226,15 +226,15 @@
 		},
 		{
 			"name": "`ehm( )`",
-			"duration": 176,
-			"start": "2017-09-08T05:34:54.496Z",
-			"end": "2017-09-08T05:34:54.672Z",
+			"duration": 132,
+			"start": "2017-09-08T06:27:00.954Z",
+			"end": "2017-09-08T06:27:01.086Z",
 			"tests": [
 				{
 					"name": "should return Meta class",
-					"start": "2017-09-08T05:34:54.496Z",
-					"end": "2017-09-08T05:34:54.671Z",
-					"duration": 175,
+					"start": "2017-09-08T06:27:00.955Z",
+					"end": "2017-09-08T06:27:01.084Z",
+					"duration": 129,
 					"state": "pass"
 				}
 			],
@@ -242,15 +242,15 @@
 		},
 		{
 			"name": "`ehm( ).create( 'helloworld' ).serialize( )`",
-			"duration": 93,
-			"start": "2017-09-08T05:34:54.672Z",
-			"end": "2017-09-08T05:34:54.765Z",
+			"duration": 81,
+			"start": "2017-09-08T06:27:01.086Z",
+			"end": "2017-09-08T06:27:01.167Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:54.672Z",
-					"end": "2017-09-08T05:34:54.765Z",
-					"duration": 93,
+					"start": "2017-09-08T06:27:01.086Z",
+					"end": "2017-09-08T06:27:01.166Z",
+					"duration": 80,
 					"state": "pass"
 				}
 			],
@@ -258,15 +258,15 @@
 		},
 		{
 			"name": "`ehm( ).create( 1 ).serialize( )`",
-			"duration": 102,
-			"start": "2017-09-08T05:34:54.765Z",
-			"end": "2017-09-08T05:34:54.867Z",
+			"duration": 114,
+			"start": "2017-09-08T06:27:01.167Z",
+			"end": "2017-09-08T06:27:01.281Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:54.765Z",
-					"end": "2017-09-08T05:34:54.867Z",
-					"duration": 102,
+					"start": "2017-09-08T06:27:01.167Z",
+					"end": "2017-09-08T06:27:01.280Z",
+					"duration": 113,
 					"state": "pass"
 				}
 			],
@@ -274,15 +274,15 @@
 		},
 		{
 			"name": "`ehm( ).create( true ).serialize( )`",
-			"duration": 77,
-			"start": "2017-09-08T05:34:54.867Z",
-			"end": "2017-09-08T05:34:54.944Z",
+			"duration": 89,
+			"start": "2017-09-08T06:27:01.281Z",
+			"end": "2017-09-08T06:27:01.370Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:54.867Z",
-					"end": "2017-09-08T05:34:54.944Z",
-					"duration": 77,
+					"start": "2017-09-08T06:27:01.281Z",
+					"end": "2017-09-08T06:27:01.369Z",
+					"duration": 88,
 					"state": "pass"
 				}
 			],
@@ -290,14 +290,14 @@
 		},
 		{
 			"name": "`ehm( ).create( { 'hello': 'world' } ).serialize( )`",
-			"duration": 88,
-			"start": "2017-09-08T05:34:54.944Z",
-			"end": "2017-09-08T05:34:55.032Z",
+			"duration": 90,
+			"start": "2017-09-08T06:27:01.370Z",
+			"end": "2017-09-08T06:27:01.460Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:54.944Z",
-					"end": "2017-09-08T05:34:55.030Z",
+					"start": "2017-09-08T06:27:01.371Z",
+					"end": "2017-09-08T06:27:01.457Z",
 					"duration": 86,
 					"state": "pass"
 				}
@@ -306,31 +306,15 @@
 		},
 		{
 			"name": "`ehm( ).create( Symbol.for( 'hello' ) ).serialize( )`",
-			"duration": 80,
-			"start": "2017-09-08T05:34:55.032Z",
-			"end": "2017-09-08T05:34:55.112Z",
+			"duration": 90,
+			"start": "2017-09-08T06:27:01.460Z",
+			"end": "2017-09-08T06:27:01.550Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:55.032Z",
-					"end": "2017-09-08T05:34:55.112Z",
-					"duration": 80,
-					"state": "pass"
-				}
-			],
-			"hooks": []
-		},
-		{
-			"name": "`ehm( ).create( function hello( ){ } ).serialize( )`",
-			"duration": 79,
-			"start": "2017-09-08T05:34:55.112Z",
-			"end": "2017-09-08T05:34:55.191Z",
-			"tests": [
-				{
-					"name": "should return string type",
-					"start": "2017-09-08T05:34:55.112Z",
-					"end": "2017-09-08T05:34:55.191Z",
-					"duration": 79,
+					"start": "2017-09-08T06:27:01.460Z",
+					"end": "2017-09-08T06:27:01.549Z",
+					"duration": 89,
 					"state": "pass"
 				}
 			],
@@ -338,15 +322,15 @@
 		},
 		{
 			"name": "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`",
-			"duration": 88,
-			"start": "2017-09-08T05:34:55.191Z",
-			"end": "2017-09-08T05:34:55.279Z",
+			"duration": 76,
+			"start": "2017-09-08T06:27:01.550Z",
+			"end": "2017-09-08T06:27:01.626Z",
 			"tests": [
 				{
 					"name": "should return string type",
-					"start": "2017-09-08T05:34:55.192Z",
-					"end": "2017-09-08T05:34:55.279Z",
-					"duration": 87,
+					"start": "2017-09-08T06:27:01.550Z",
+					"end": "2017-09-08T06:27:01.626Z",
+					"duration": 76,
 					"state": "pass"
 				}
 			],
@@ -354,15 +338,15 @@
 		},
 		{
 			"name": "`ehm( ).deserialize( ehm( ).create( 1 ).serialize( ) ).valueOf( )`",
-			"duration": 81,
-			"start": "2017-09-08T05:34:55.279Z",
-			"end": "2017-09-08T05:34:55.360Z",
+			"duration": 77,
+			"start": "2017-09-08T06:27:01.626Z",
+			"end": "2017-09-08T06:27:01.703Z",
 			"tests": [
 				{
 					"name": "should return number type",
-					"start": "2017-09-08T05:34:55.279Z",
-					"end": "2017-09-08T05:34:55.359Z",
-					"duration": 80,
+					"start": "2017-09-08T06:27:01.626Z",
+					"end": "2017-09-08T06:27:01.702Z",
+					"duration": 76,
 					"state": "pass"
 				}
 			],
@@ -370,15 +354,15 @@
 		},
 		{
 			"name": "`ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )`",
-			"duration": 83,
-			"start": "2017-09-08T05:34:55.360Z",
-			"end": "2017-09-08T05:34:55.443Z",
+			"duration": 90,
+			"start": "2017-09-08T06:27:01.703Z",
+			"end": "2017-09-08T06:27:01.793Z",
 			"tests": [
 				{
 					"name": "should return boolean type",
-					"start": "2017-09-08T05:34:55.360Z",
-					"end": "2017-09-08T05:34:55.442Z",
-					"duration": 82,
+					"start": "2017-09-08T06:27:01.703Z",
+					"end": "2017-09-08T06:27:01.793Z",
+					"duration": 90,
 					"state": "pass"
 				}
 			],
@@ -386,15 +370,31 @@
 		},
 		{
 			"name": "`ehm( ).deserialize( ehm( ).create( { 'hello': 'world' } ).serialize( ) ).valueOf( )`",
-			"duration": 77,
-			"start": "2017-09-08T05:34:55.443Z",
-			"end": "2017-09-08T05:34:55.520Z",
+			"duration": 76,
+			"start": "2017-09-08T06:27:01.793Z",
+			"end": "2017-09-08T06:27:01.869Z",
 			"tests": [
 				{
 					"name": "should return object type",
-					"start": "2017-09-08T05:34:55.443Z",
-					"end": "2017-09-08T05:34:55.519Z",
-					"duration": 76,
+					"start": "2017-09-08T06:27:01.793Z",
+					"end": "2017-09-08T06:27:01.868Z",
+					"duration": 75,
+					"state": "pass"
+				}
+			],
+			"hooks": []
+		},
+		{
+			"name": "`ehm( ).deserialize( ehm( ).create( Symbol.for( 'hello' ) ).serialize( ) ).valueOf( )`",
+			"duration": 95,
+			"start": "2017-09-08T06:27:01.869Z",
+			"end": "2017-09-08T06:27:01.964Z",
+			"tests": [
+				{
+					"name": "should return symbol type",
+					"start": "2017-09-08T06:27:01.869Z",
+					"end": "2017-09-08T06:27:01.964Z",
+					"duration": 95,
 					"state": "pass"
 				}
 			],

@@ -196,7 +196,7 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
-	describe( "`ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( ).name`", ( ) => {
+	describe( "`ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return function type", ( ) => {
 			let Meta = ehm( );
 

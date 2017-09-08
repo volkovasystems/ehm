@@ -5,9 +5,9 @@
 		"passes": 13,
 		"pending": 0,
 		"failures": 0,
-		"start": "2017-09-08T05:34:49.258Z",
-		"end": "2017-09-08T05:34:49.275Z",
-		"duration": 17
+		"start": "2017-09-08T06:26:55.714Z",
+		"end": "2017-09-08T06:26:55.730Z",
+		"duration": 16
 	},
 	"tests": [
 		{
@@ -48,7 +48,7 @@
 		{
 			"title": "should return string type",
 			"fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-			"duration": 1,
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		},
@@ -90,14 +90,14 @@
 		{
 			"title": "should return symbol type",
 			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( Symbol.for( 'hello' ) ).serialize( ) ).valueOf( )` should return symbol type",
-			"duration": 1,
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		},
 		{
 			"title": "should return function type",
-			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( ).name` should return function type",
-			"duration": 1,
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )` should return function type",
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		}
@@ -143,7 +143,7 @@
 		{
 			"title": "should return string type",
 			"fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-			"duration": 1,
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		},
@@ -185,14 +185,14 @@
 		{
 			"title": "should return symbol type",
 			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( Symbol.for( 'hello' ) ).serialize( ) ).valueOf( )` should return symbol type",
-			"duration": 1,
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		},
 		{
 			"title": "should return function type",
-			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( ).name` should return function type",
-			"duration": 1,
+			"fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )` should return function type",
+			"duration": 0,
 			"currentRetry": 0,
 			"err": {}
 		}
