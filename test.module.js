@@ -146,6 +146,16 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Error ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Error ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -280,6 +290,16 @@ describe( "ehm", ( ) => {
 
 			assert.equal( Meta.create( Symbol.for( "hello" ) ).serialize( ), "[symbol Symbol:data:text/symbol;base64,U3ltYm9sKGhlbGxvKQ%3D%3D]" );
 
+		} );
+	} );
+
+	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Error ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Error ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
 		} );
 	} );
 
@@ -703,6 +723,34 @@ describe( "ehm", ( ) => {
 			).value;
 			//: @end-ignore
 			assert.equal( testB, "Symbol(hello)" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return typeof Meta.create( Error ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return Meta.create( Error ).serialize( );
+				}
+
+			).value;
+
+			assert.equal( testB, "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
 		} );
 	} );
 
