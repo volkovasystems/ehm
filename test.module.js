@@ -176,6 +176,16 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( NaN ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( NaN ).serialize( ), "string" );
+
+			assert.equal( Meta.create( NaN ).serialize( ), "[number Number:data:text/number;base64,TmFO]" );
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -390,6 +400,16 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( NaN ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( NaN ).serialize( ), "string" );
+
+			assert.equal( Meta.create( NaN ).serialize( ), "[number Number:data:text/number;base64,TmFO]" );
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -475,6 +495,18 @@ describe( "ehm", ( ) => {
 			const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
 
 			assert.equal( NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) ), true );
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( true ).toString( ), "string" );
+
+			const BOOLEAN_TAG_PATTERN = /^\[object Boolean(?:\:(.+?))?\]$/;
+
+			assert.equal( BOOLEAN_TAG_PATTERN.test( Meta.create( true ).toString( ) ), true );
 		} );
 	} );
 
@@ -677,6 +709,34 @@ describe( "ehm", ( ) => {
 	// 	} );
 	// } );
 
+	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return typeof Meta.create( Error ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					return Meta.create( Error ).serialize( );
+				}
+
+			).value;
+
+			assert.equal( testB, "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+		} );
+	} );
+
 	describe( "`ehm( ).create( null ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			//: @ignore:
@@ -738,6 +798,38 @@ describe( "ehm", ( ) => {
 			//: @end-ignore
 
 			assert.equal( testB, "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( NaN ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( NaN ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( NaN ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, "[number Number:data:text/number;base64,TmFO]" );
 		} );
 	} );
 
@@ -890,14 +982,15 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
-	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
+	describe( "`ehm( ).create( 'helloworld' ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			//: @ignore:
 			let testA = browser.url( bridgeURL ).execute(
 
 				function( ){
 					let Meta = ehm( );
-					return typeof Meta.create( Error ).serialize( );
+
+					return typeof Meta.create( "helloworld" ).toString( );
 				}
 
 			).value;
@@ -905,16 +998,86 @@ describe( "ehm", ( ) => {
 			assert.equal( testA, "string" );
 
 
+			//: @ignore:
 			let testB = browser.url( bridgeURL ).execute(
 
 				function( ){
 					let Meta = ehm( );
-					return Meta.create( Error ).serialize( );
+
+					const STRING_TAG_PATTERN = /^\[object String(?:\:(.+?))?\]$/;
+
+					return STRING_TAG_PATTERN.test( Meta.create( "helloworld" ).toString( ) );
 				}
 
 			).value;
+			//: @end-ignore
 
-			assert.equal( testB, "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+			assert.equal( testB, true );
+		} );
+	} );
+
+	describe( "`ehm( ).create( 1 ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( 1 ).toString( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
+
+					return NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testB, true );
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( true ).toString( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const BOOLEAN_TAG_PATTERN = /^\[object Boolean(?:\:(.+?))?\]$/;
+
+					return BOOLEAN_TAG_PATTERN.test( Meta.create( true ).toString( ) );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, true );
 		} );
 	} );
 
