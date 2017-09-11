@@ -264,6 +264,18 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( true ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( true ).toString( ), "string" );
+
+			const BOOLEAN_TAG_PATTERN = /^\[object Boolean(?:\:(.+?))?\]$/;
+
+			assert.equal( BOOLEAN_TAG_PATTERN.test( Meta.create( true ).toString( ) ), true );
+		} );
+	} );
+
 } );
 //: @end-server
 
