@@ -240,6 +240,30 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( 'helloworld' ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( "helloworld" ).toString( ), "string" );
+
+			const STRING_TAG_PATTERN = /^\[object String(?:\:(.+?))?\]$/;
+
+			assert.equal( STRING_TAG_PATTERN.test( Meta.create( "helloworld" ).toString( ) ), true );
+		} );
+	} );
+
+	describe( "`ehm( ).create( 1 ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( 1 ).toString( ), "string" );
+
+			const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
+
+			assert.equal( NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) ), true );
+		} );
+	} );
+
 } );
 //: @end-server
 
@@ -415,6 +439,30 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ), "function" );
 
 			assert.equal( Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ).name, "hello" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( 'helloworld' ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( "helloworld" ).toString( ), "string" );
+
+			const STRING_TAG_PATTERN = /^\[object String(?:\:(.+?))?\]$/;
+
+			assert.equal( STRING_TAG_PATTERN.test( Meta.create( "helloworld" ).toString( ) ), true );
+		} );
+	} );
+
+	describe( "`ehm( ).create( 1 ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( 1 ).toString( ), "string" );
+
+			const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
+
+			assert.equal( NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) ), true );
 		} );
 	} );
 
