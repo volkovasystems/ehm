@@ -156,6 +156,16 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( ( ) => { } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( ( ) => { } ).serialize( ), "string" );
+
+			assert.equal( Meta.create( ( ) => { } ).serialize( ), "[function Function:data:text/function;base64,KCApID0%2BIHsgfQ%3D%3D]" );
+		} );
+	} );
+
 	describe( "`ehm( ).create( null ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -359,6 +369,17 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	// describe( "`ehm( ).create( function hello( ){ } ).serialize( )`", ( ) => {
+	// 	it( "should return string type", ( ) => {
+	// 		let Meta = ehm( );
+	//
+	// 		assert.equal( typeof Meta.create( function hello( ){ } ).serialize( ), "string" );
+	//
+	// 		assert.equal( Meta.create( function hello( ){ } ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gaGVsbG8oICl7IH0%3D]" );
+	//
+	// 	} );
+	// } );
+
 	describe( "`ehm( ).create( Error ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -369,14 +390,13 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
-	// describe( "`ehm( ).create( function hello( ){ } ).serialize( )`", ( ) => {
+	// describe( "`ehm( ).create( ( ) => { } ).serialize( )`", ( ) => {
 	// 	it( "should return string type", ( ) => {
 	// 		let Meta = ehm( );
 	//
-	// 		assert.equal( typeof Meta.create( function hello( ){ } ).serialize( ), "string" );
+	// 		assert.equal( typeof Meta.create( ( ) => { } ).serialize( ), "string" );
 	//
-	// 		assert.equal( Meta.create( function hello( ){ } ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gaGVsbG8oICl7IH0%3D]" );
-	//
+	// 		assert.equal( Meta.create( ( ) => { } ).serialize( ), "[function Function:data:text/function;base64,KCApID0%2BIHsgfQ%3D%3D]" );
 	// 	} );
 	// } );
 
@@ -734,6 +754,38 @@ describe( "ehm", ( ) => {
 			).value;
 
 			assert.equal( testB, "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( ( ) => { } ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( ( ) => { } ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( ( ) => { } ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, "[function Function:data:text/function;base64,KCApID0%2BIHsgfQ%3D%3D]" );
 		} );
 	} );
 
