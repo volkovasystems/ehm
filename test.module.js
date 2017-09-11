@@ -156,6 +156,26 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( null ).serialize( ), "string" );
+
+			assert.equal( Meta.create( null ).serialize( ), "[object Object:data:text/object;base64,bnVsbA%3D%3D]" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( undefined ).serialize( ), "string" );
+
+			assert.equal( Meta.create( undefined ).serialize( ), "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -313,6 +333,26 @@ describe( "ehm", ( ) => {
 	//
 	// 	} );
 	// } );
+
+	describe( "`ehm( ).create( null ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( null ).serialize( ), "string" );
+
+			assert.equal( Meta.create( null ).serialize( ), "[object Object:data:text/object;base64,bnVsbA%3D%3D]" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( undefined ).serialize( ), "string" );
+
+			assert.equal( Meta.create( undefined ).serialize( ), "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+		} );
+	} );
 
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
@@ -576,6 +616,70 @@ describe( "ehm", ( ) => {
 	// 		assert.equal( testB, "[function Function:data:text/function;base64,ZnVuY3Rpb24gaGVsbG8oICl7IH0%3D]" );
 	// 	} );
 	// } );
+
+	describe( "`ehm( ).create( null ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( null ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( null ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, "[object Object:data:text/object;base64,bnVsbA%3D%3D]" );
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( undefined ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( undefined ).serialize( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+		} );
+	} );
 
 	describe( "`ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return string type", ( ) => {
