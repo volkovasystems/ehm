@@ -153,6 +153,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( Error ).serialize( ), "string" );
 
 			assert.equal( Meta.create( Error ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+
 		} );
 	} );
 
@@ -163,6 +164,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( ( ) => { } ).serialize( ), "string" );
 
 			assert.equal( Meta.create( ( ) => { } ).serialize( ), "[function Function:data:text/function;base64,KCApID0%2BIHsgfQ%3D%3D]" );
+
 		} );
 	} );
 
@@ -173,6 +175,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( null ).serialize( ), "string" );
 
 			assert.equal( Meta.create( null ).serialize( ), "[object Object:data:text/object;base64,bnVsbA%3D%3D]" );
+
 		} );
 	} );
 
@@ -183,6 +186,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( undefined ).serialize( ), "string" );
 
 			assert.equal( Meta.create( undefined ).serialize( ), "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+
 		} );
 	} );
 
@@ -193,6 +197,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( NaN ).serialize( ), "string" );
 
 			assert.equal( Meta.create( NaN ).serialize( ), "[number Number:data:text/number;base64,TmFO]" );
+
 		} );
 	} );
 
@@ -247,6 +252,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ), "symbol" );
 
 			assert.equal( Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ).toString( ), "Symbol(hello)" );
+
 		} );
 	} );
 
@@ -257,6 +263,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ), "function" );
 
 			assert.equal( Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ).name, "hello" );
+
 		} );
 	} );
 
@@ -269,6 +276,7 @@ describe( "ehm", ( ) => {
 			const STRING_TAG_PATTERN = /^\[object String(?:\:(.+?))?\]$/;
 
 			assert.equal( STRING_TAG_PATTERN.test( Meta.create( "helloworld" ).toString( ) ), true );
+
 		} );
 	} );
 
@@ -281,6 +289,7 @@ describe( "ehm", ( ) => {
 			const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
 
 			assert.equal( NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) ), true );
+
 		} );
 	} );
 
@@ -293,6 +302,79 @@ describe( "ehm", ( ) => {
 			const BOOLEAN_TAG_PATTERN = /^\[object Boolean(?:\:(.+?))?\]$/;
 
 			assert.equal( BOOLEAN_TAG_PATTERN.test( Meta.create( true ).toString( ) ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( { 'hello': 'world' } ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( { "hello": "world" } ).toString( ), "string" );
+
+			const OBJECT_TAG_PATTERN = /^\[object Object(?:\:(.+?))?\]$/;
+
+			assert.equal( OBJECT_TAG_PATTERN.test( Meta.create( { "hello": "world" } ).toString( ) ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Symbol.for( "hello" ) ).toString( ), "string" );
+
+			const SYMBOL_TAG_PATTERN = /^\[object Symbol(?:\:(.+?))?\]$/;
+
+			assert.equal( SYMBOL_TAG_PATTERN.test( Meta.create( Symbol.for( "hello" ) ).toString( ) ), true );
+
+		} );
+	} );
+	//.toNumber( )
+
+	describe( "`ehm( ).create( 'helloworld' ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( "helloworld" ).toNumber( ), Infinity );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( 1 ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( 1 ).toNumber( ), Infinity );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( true ).toNumber( ), Infinity );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( { 'hello': 'world' } ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( { "hello": "world" } ).toNumber( ), Infinity );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( Symbol.for( "hello" ) ).toNumber( ), Infinity );
+
 		} );
 	} );
 
@@ -387,6 +469,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( Error ).serialize( ), "string" );
 
 			assert.equal( Meta.create( Error ).serialize( ), "[function Function:data:text/function;base64,ZnVuY3Rpb24gRXJyb3IoKSB7IFtuYXRpdmUgY29kZV0gfQ%3D%3D]" );
+
 		} );
 	} );
 
@@ -407,6 +490,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( null ).serialize( ), "string" );
 
 			assert.equal( Meta.create( null ).serialize( ), "[object Object:data:text/object;base64,bnVsbA%3D%3D]" );
+
 		} );
 	} );
 
@@ -417,6 +501,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( undefined ).serialize( ), "string" );
 
 			assert.equal( Meta.create( undefined ).serialize( ), "[undefined Undefined:data:text/undefined;base64,dW5kZWZpbmVk]" );
+
 		} );
 	} );
 
@@ -427,6 +512,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( NaN ).serialize( ), "string" );
 
 			assert.equal( Meta.create( NaN ).serialize( ), "[number Number:data:text/number;base64,TmFO]" );
+
 		} );
 	} );
 
@@ -481,6 +567,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ), "symbol" );
 
 			assert.equal( Meta.deserialize( Meta.create( Symbol.for( "hello" ) ).serialize( ) ).valueOf( ).toString( ), "Symbol(hello)" );
+
 		} );
 	} );
 
@@ -491,6 +578,7 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ), "function" );
 
 			assert.equal( Meta.deserialize( Meta.create( function hello( ){ } ).serialize( ) ).valueOf( ).name, "hello" );
+
 		} );
 	} );
 
@@ -503,6 +591,7 @@ describe( "ehm", ( ) => {
 			const STRING_TAG_PATTERN = /^\[object String(?:\:(.+?))?\]$/;
 
 			assert.equal( STRING_TAG_PATTERN.test( Meta.create( "helloworld" ).toString( ) ), true );
+
 		} );
 	} );
 
@@ -515,6 +604,7 @@ describe( "ehm", ( ) => {
 			const NUMBER_TAG_PATTERN = /^\[object Number(?:\:(.+?))?\]$/;
 
 			assert.equal( NUMBER_TAG_PATTERN.test( Meta.create( 1 ).toString( ) ), true );
+
 		} );
 	} );
 
@@ -527,6 +617,7 @@ describe( "ehm", ( ) => {
 			const BOOLEAN_TAG_PATTERN = /^\[object Boolean(?:\:(.+?))?\]$/;
 
 			assert.equal( BOOLEAN_TAG_PATTERN.test( Meta.create( true ).toString( ) ), true );
+
 		} );
 	} );
 
