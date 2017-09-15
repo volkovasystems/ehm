@@ -1574,6 +1574,168 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( { 'hello': 'world' } ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( { "hello": "world" } ).toString( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const OBJECT_TAG_PATTERN = /^\[object Object(?:\:(.+?))?\]$/;
+
+					return OBJECT_TAG_PATTERN.test( Meta.create( { "hello": "world" } ).toString( ) );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let testA = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return typeof Meta.create( Symbol.for( "hello" ) ).toString( );
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( testA, "string" );
+
+
+			//: @ignore:
+			let testB = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const SYMBOL_TAG_PATTERN = /^\[object Symbol(?:\:(.+?))?\]$/;
+
+					return SYMBOL_TAG_PATTERN.test( Meta.create( Symbol.for( "hello" ) ).toString( ) );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( testB, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( 'helloworld' ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( "helloworld" ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( 1 ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( 1 ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( true ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( true ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( { 'hello': 'world' } ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( { "hello": "world" } ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( Symbol.for( "hello" ) ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 } );
 
 //: @end-bridge
