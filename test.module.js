@@ -1667,6 +1667,26 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let test = typeof Meta.create( Infinity ).toString( );
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, "string" );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			//: @ignore:
