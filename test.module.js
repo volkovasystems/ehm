@@ -1825,6 +1825,26 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).toNumber( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let test = Meta.create( Infinity ).toNumber( ) == Infinity;
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).toNumber( )`", ( ) => {
 		it( "should return Infinity", ( ) => {
 			//: @ignore:
@@ -1910,6 +1930,25 @@ describe( "ehm", ( ) => {
 					let Meta = ehm( );
 
 					return Meta.create( 1 ).toBoolean( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Infinity ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( Infinity ).toBoolean( );
 				}
 
 			).value;
@@ -2021,6 +2060,33 @@ describe( "ehm", ( ) => {
 						"format" in descriptor == true;
 
 					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Infinity ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let descriptor = Meta.create( Infinity ).toObject( );
+
+					let test = typeof descriptor == "object" &&
+						"type" in descriptor == true &&
+						"name" in descriptor == true &&
+						"value" in descriptor == true &&
+						"format" in descriptor == true;
+
+					return test;
+
 				}
 
 			).value;
