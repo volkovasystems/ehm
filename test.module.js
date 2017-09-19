@@ -577,6 +577,17 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Infinity ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Infinity ).serialize( ), "[number Number:data:text/number;base64,SW5maW5pdHk%3D]" );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -639,6 +650,7 @@ describe( "ehm", ( ) => {
 	// 		assert.equal( typeof Meta.create( ( ) => { } ).serialize( ), "string" );
 	//
 	// 		assert.equal( Meta.create( ( ) => { } ).serialize( ), "[function Function:data:text/function;base64,KCApID0%2BIHsgfQ%3D%3D]" );
+	//
 	// 	} );
 	// } );
 
@@ -697,6 +709,15 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).deserialize( ehm( ).create( Infinity ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.deserialize( Meta.create( Infinity ).serialize( ) ).valueOf( ), Infinity );
+
+		} );
+	} );
+
 	describe( "`ehm( ).deserialize( ehm( ).create( true ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return boolean type", ( ) => {
 			let Meta = ehm( );
@@ -730,7 +751,7 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
-	describe( "`ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( ).name`", ( ) => {
+	describe( "`ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )`", ( ) => {
 		it( "should return function type", ( ) => {
 			let Meta = ehm( );
 
@@ -1072,6 +1093,26 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let test = typeof Meta.create( Infinity ).serialize( ) == "string" &&
+						Meta.create( Infinity ).serialize( ) == "[number Number:data:text/number;base64,SW5maW5pdHk%3D]";
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).serialize( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			//: @ignore:
@@ -1401,6 +1442,25 @@ describe( "ehm", ( ) => {
 			).value;
 
 			assert.equal( testB, 1 );
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( Infinity ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let test = Meta.deserialize( Meta.create( Infinity ).serialize( ) ).valueOf( ) == Infinity;
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+			assert.equal( result, true );
+
 		} );
 	} );
 
