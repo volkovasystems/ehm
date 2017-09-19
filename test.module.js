@@ -45,7 +45,7 @@
 
 	@include:
 		{
-			"assert": "should",
+			"assert": "should/as-function",
 			"ehm": "ehm"
 		}
 	@end-include
@@ -98,6 +98,17 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.create( 1 ).serialize( ), "string" );
 
 			assert.equal( Meta.create( 1 ).serialize( ), "[number Number:data:text/number;base64,MQ%3D%3D]" );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Infinity ).serialize( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Infinity ).serialize( ), "string" );
+
+			assert.equal( Meta.create( Infinity ).serialize( ), "[number Number:data:text/number;base64,SW5maW5pdHk%3D]" );
 
 		} );
 	} );
@@ -219,6 +230,15 @@ describe( "ehm", ( ) => {
 			assert.equal( typeof Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), "number" );
 
 			assert.equal( Meta.deserialize( Meta.create( 1 ).serialize( ) ).valueOf( ), 1 );
+
+		} );
+	} );
+
+	describe( "`ehm( ).deserialize( ehm( ).create( Infinity ).serialize( ) ).valueOf( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.deserialize( Meta.create( Infinity ).serialize( ) ).valueOf( ), Infinity );
 
 		} );
 	} );
@@ -1962,7 +1982,7 @@ describe( "ehm", ( ) => {
 			//: @end-ignore
 
 			assert.equal( result, true );
-			
+
 		} );
 	} );
 
