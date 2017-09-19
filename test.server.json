@@ -1,13 +1,13 @@
 {
   "stats": {
-    "suites": 41,
-    "tests": 40,
-    "passes": 40,
+    "suites": 45,
+    "tests": 44,
+    "passes": 44,
     "pending": 0,
     "failures": 0,
-    "start": "2017-09-19T08:55:31.896Z",
-    "end": "2017-09-19T08:55:31.918Z",
-    "duration": 22
+    "start": "2017-09-19T09:29:19.321Z",
+    "end": "2017-09-19T09:29:19.345Z",
+    "duration": 24
   },
   "tests": [
     {
@@ -34,7 +34,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Infinity ).serialize( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -55,7 +55,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -104,7 +104,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
-      "duration": 2,
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     },
@@ -146,7 +146,7 @@
     {
       "title": "should return function type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )` should return function type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -160,6 +160,13 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( 1 ).toString( )` should return string type",
+      "duration": 1,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return string type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toString( )` should return string type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}
@@ -181,7 +188,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).toString( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -195,6 +202,13 @@
     {
       "title": "should return Infinity",
       "fullTitle": "ehm `ehm( ).create( 1 ).toNumber( )` should return Infinity",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return string type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toNumber( )` should return string type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}
@@ -236,6 +250,13 @@
     },
     {
       "title": "should return true",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toBoolean( )` should return true",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return true",
       "fullTitle": "ehm `ehm( ).create( true ).toBoolean( )` should return true",
       "duration": 0,
       "currentRetry": 0,
@@ -258,13 +279,20 @@
     {
       "title": "should return object type",
       "fullTitle": "ehm `ehm( ).create( 'helloworld' ).toObject( )` should return object type",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "should return object type",
       "fullTitle": "ehm `ehm( ).create( 1 ).toObject( )` should return object type",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return object type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toObject( )` should return object type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}
@@ -318,7 +346,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Infinity ).serialize( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -339,7 +367,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).serialize( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -388,7 +416,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( 'helloworld' ).serialize( ) ).valueOf( )` should return string type",
-      "duration": 2,
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     },
@@ -430,7 +458,7 @@
     {
       "title": "should return function type",
       "fullTitle": "ehm `ehm( ).deserialize( ehm( ).create( function hello( ){ } ).serialize( ) ).valueOf( )` should return function type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -444,6 +472,13 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( 1 ).toString( )` should return string type",
+      "duration": 1,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return string type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toString( )` should return string type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}
@@ -465,7 +500,7 @@
     {
       "title": "should return string type",
       "fullTitle": "ehm `ehm( ).create( Symbol.for( 'hello' ) ).toString( )` should return string type",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -479,6 +514,13 @@
     {
       "title": "should return Infinity",
       "fullTitle": "ehm `ehm( ).create( 1 ).toNumber( )` should return Infinity",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return string type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toNumber( )` should return string type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}
@@ -520,6 +562,13 @@
     },
     {
       "title": "should return true",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toBoolean( )` should return true",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return true",
       "fullTitle": "ehm `ehm( ).create( true ).toBoolean( )` should return true",
       "duration": 0,
       "currentRetry": 0,
@@ -542,13 +591,20 @@
     {
       "title": "should return object type",
       "fullTitle": "ehm `ehm( ).create( 'helloworld' ).toObject( )` should return object type",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "should return object type",
       "fullTitle": "ehm `ehm( ).create( 1 ).toObject( )` should return object type",
+      "duration": 0,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should return object type",
+      "fullTitle": "ehm `ehm( ).create( Infinity ).toObject( )` should return object type",
       "duration": 0,
       "currentRetry": 0,
       "err": {}

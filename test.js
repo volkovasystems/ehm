@@ -309,6 +309,15 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( Infinity ).toString( ), "string" );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -366,6 +375,15 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( Infinity ).toNumber( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( Infinity ).toNumber( ), Infinity );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( true ).toNumber( )`", ( ) => {
 		it( "should return Infinity", ( ) => {
 			let Meta = ehm( );
@@ -407,6 +425,15 @@ describe( "ehm", ( ) => {
 			let Meta = ehm( );
 
 			assert.equal( Meta.create( 1 ).toBoolean( ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Infinity ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( Infinity ).toBoolean( ), true );
 
 		} );
 	} );
@@ -462,6 +489,25 @@ describe( "ehm", ( ) => {
 			let Meta = ehm( );
 
 			let descriptor = Meta.create( 1 ).toObject( );
+
+			assert.equal( typeof descriptor, "object" );
+
+			assert.equal( "type" in descriptor, true );
+
+			assert.equal( "name" in descriptor, true );
+
+			assert.equal( "value" in descriptor, true );
+
+			assert.equal( "format" in descriptor, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( Infinity ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			let Meta = ehm( );
+
+			let descriptor = Meta.create( Infinity ).toObject( );
 
 			assert.equal( typeof descriptor, "object" );
 
