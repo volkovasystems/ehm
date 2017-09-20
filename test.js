@@ -344,6 +344,19 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( null ).toString( ), "string" );
+
+			const OBJECT_TAG_PATTERN = /^\[object Null(?:\:(.+?))?\]$/;
+
+			assert.equal( OBJECT_TAG_PATTERN.test( Meta.create( null ).toString( ) ), true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -353,6 +366,19 @@ describe( "ehm", ( ) => {
 			const SYMBOL_TAG_PATTERN = /^\[object Symbol(?:\:(.+?))?\]$/;
 
 			assert.equal( SYMBOL_TAG_PATTERN.test( Meta.create( Symbol.for( "hello" ) ).toString( ) ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( undefined ).toString( ), "string" );
+
+			const OBJECT_TAG_PATTERN = /^\[object Undefined(?:\:(.+?))?\]$/;
+
+			assert.equal( OBJECT_TAG_PATTERN.test( Meta.create( undefined ).toString( ) ), true );
 
 		} );
 	} );
@@ -376,7 +402,7 @@ describe( "ehm", ( ) => {
 	} );
 
 	describe( "`ehm( ).create( Infinity ).toNumber( )`", ( ) => {
-		it( "should return string type", ( ) => {
+		it( "should return Infinity", ( ) => {
 			let Meta = ehm( );
 
 			assert.equal( Meta.create( Infinity ).toNumber( ), Infinity );
@@ -402,11 +428,29 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( null ).toNumber( ), Infinity );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toNumber( )`", ( ) => {
 		it( "should return Infinity", ( ) => {
 			let Meta = ehm( );
 
 			assert.equal( Meta.create( Symbol.for( "hello" ) ).toNumber( ), Infinity );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( undefined ).toNumber( ), Infinity );
 
 		} );
 	} );
@@ -456,11 +500,29 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( null ).toBoolean( ), true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toBoolean( )`", ( ) => {
 		it( "should return true", ( ) => {
 			let Meta = ehm( );
 
 			assert.equal( Meta.create( Symbol.for( "hello" ) ).toBoolean( ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( Meta.create( undefined ).toBoolean( ), true );
 
 		} );
 	} );
@@ -560,11 +622,49 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			let Meta = ehm( );
+
+			let descriptor = Meta.create( null ).toObject( );
+
+			assert.equal( typeof descriptor, "object" );
+
+			assert.equal( "type" in descriptor, true );
+
+			assert.equal( "name" in descriptor, true );
+
+			assert.equal( "value" in descriptor, true );
+
+			assert.equal( "format" in descriptor, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toObject( )`", ( ) => {
 		it( "should return object type", ( ) => {
 			let Meta = ehm( );
 
 			let descriptor = Meta.create( Symbol.for( "hello" ) ).toObject( );
+
+			assert.equal( typeof descriptor, "object" );
+
+			assert.equal( "type" in descriptor, true );
+
+			assert.equal( "name" in descriptor, true );
+
+			assert.equal( "value" in descriptor, true );
+
+			assert.equal( "format" in descriptor, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			let Meta = ehm( );
+
+			let descriptor = Meta.create( undefined ).toObject( );
 
 			assert.equal( typeof descriptor, "object" );
 
