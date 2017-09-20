@@ -348,6 +348,19 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( null ).toString( ), "string" );
+
+			const OBJECT_TAG_PATTERN = /^\[object Null(?:\:(.+?))?\]$/;
+
+			assert.equal( OBJECT_TAG_PATTERN.test( Meta.create( null ).toString( ) ), true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			let Meta = ehm( );
@@ -357,6 +370,19 @@ describe( "ehm", ( ) => {
 			const SYMBOL_TAG_PATTERN = /^\[object Symbol(?:\:(.+?))?\]$/;
 
 			assert.equal( SYMBOL_TAG_PATTERN.test( Meta.create( Symbol.for( "hello" ) ).toString( ) ), true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			let Meta = ehm( );
+
+			assert.equal( typeof Meta.create( undefined ).toString( ), "string" );
+
+			const OBJECT_TAG_PATTERN = /^\[object Undefined(?:\:(.+?))?\]$/;
+
+			assert.equal( OBJECT_TAG_PATTERN.test( Meta.create( undefined ).toString( ) ), true );
 
 		} );
 	} );
@@ -380,7 +406,7 @@ describe( "ehm", ( ) => {
 	} );
 
 	describe( "`ehm( ).create( Infinity ).toNumber( )`", ( ) => {
-		it( "should return string type", ( ) => {
+		it( "should return Infinity", ( ) => {
 			let Meta = ehm( );
 
 			assert.equal( Meta.create( Infinity ).toNumber( ), Infinity );
