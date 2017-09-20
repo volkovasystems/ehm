@@ -1999,6 +1999,29 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const OBJECT_TAG_PATTERN = /^\[object Null(?:\:(.+?))?\]$/;
+
+					let test = typeof Meta.create( null ).toString( ) == "string" &&
+						OBJECT_TAG_PATTERN.test( Meta.create( null ).toString( ) ) == true;
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toString( )`", ( ) => {
 		it( "should return string type", ( ) => {
 			//: @ignore:
@@ -2029,6 +2052,30 @@ describe( "ehm", ( ) => {
 			//: @end-ignore
 
 			assert.equal( testB, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toString( )`", ( ) => {
+		it( "should return string type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					const OBJECT_TAG_PATTERN = /^\[object Undefined(?:\:(.+?))?\]$/;
+
+					let test = typeof Meta.create( undefined ).toString( ) == "string" &&
+						OBJECT_TAG_PATTERN.test( Meta.create( undefined ).toString( ) ) == true;
+
+					return test;
+
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
 
 		} );
 	} );
@@ -2129,6 +2176,25 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( null ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toNumber( )`", ( ) => {
 		it( "should return Infinity", ( ) => {
 			//: @ignore:
@@ -2138,6 +2204,25 @@ describe( "ehm", ( ) => {
 					let Meta = ehm( );
 
 					return Meta.create( Symbol.for( "hello" ) ).toNumber( ) == Infinity;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toNumber( )`", ( ) => {
+		it( "should return Infinity", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( undefined ).toNumber( ) == Infinity;
 				}
 
 			).value;
@@ -2243,6 +2328,25 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( null ).toBoolean( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toBoolean( )`", ( ) => {
 		it( "should return true", ( ) => {
 			//: @ignore:
@@ -2252,6 +2356,25 @@ describe( "ehm", ( ) => {
 					let Meta = ehm( );
 
 					return Meta.create( Symbol.for( "hello" ) ).toBoolean( );
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toBoolean( )`", ( ) => {
+		it( "should return true", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+
+					return Meta.create( undefined ).toBoolean( );
 				}
 
 			).value;
@@ -2397,6 +2520,32 @@ describe( "ehm", ( ) => {
 		} );
 	} );
 
+	describe( "`ehm( ).create( null ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let descriptor = Meta.create( null ).toObject( );
+
+					let test = typeof descriptor == "object" &&
+						"type" in descriptor == true &&
+						"name" in descriptor == true &&
+						"value" in descriptor == true &&
+						"format" in descriptor == true;
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
 	describe( "`ehm( ).create( Symbol.for( 'hello' ) ).toObject( )`", ( ) => {
 		it( "should return object type", ( ) => {
 			//: @ignore:
@@ -2406,6 +2555,32 @@ describe( "ehm", ( ) => {
 					let Meta = ehm( );
 
 					let descriptor = Meta.create( Symbol.for( "hello" ) ).toObject( );
+
+					let test = typeof descriptor == "object" &&
+						"type" in descriptor == true &&
+						"name" in descriptor == true &&
+						"value" in descriptor == true &&
+						"format" in descriptor == true;
+
+					return test;
+				}
+
+			).value;
+			//: @end-ignore
+
+			assert.equal( result, true );
+
+		} );
+	} );
+
+	describe( "`ehm( ).create( undefined ).toObject( )`", ( ) => {
+		it( "should return object type", ( ) => {
+			//: @ignore:
+			let result = browser.url( bridgeURL ).execute(
+
+				function( ){
+					let Meta = ehm( );
+					let descriptor = Meta.create( undefined ).toObject( );
 
 					let test = typeof descriptor == "object" &&
 						"type" in descriptor == true &&
